@@ -1,0 +1,53 @@
+I"¼<p>Memoirs theme has Prism highlighter integrated. I will show you in this post a few examples of how it looks if you are a developer planning to add pieces of code on your website.</p>
+
+<h4 id="html">HTML</h4>
+
+<pre><code class="language-html">&lt;li class="ml-1 mr-1"&gt;
+    &lt;a target="_blank" href="#"&gt;
+    &lt;i class="fab fa-twitter"&gt;&lt;/i&gt;
+    &lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
+
+<h4 id="css">CSS</h4>
+
+<pre><code class="language-css">.highlight .c {
+    color: #999988;
+    font-style: italic; 
+}
+.highlight .err {
+    color: #a61717;
+    background-color: #e3d2d2; 
+}
+</code></pre>
+
+<h4 id="js">JS</h4>
+
+<pre><code class="language-js">// alertbar later
+$(document).scroll(function () {
+    var y = $(this).scrollTop();
+    if (y &gt; 280) {
+        $('.alertbar').fadeIn();
+    } else {
+        $('.alertbar').fadeOut();
+    }
+});
+</code></pre>
+
+<h4 id="python">Python</h4>
+
+<pre><code class="language-python">print("Hello World")
+</code></pre>
+
+<h4 id="ruby">Ruby</h4>
+
+<pre><code class="language-ruby">require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+</code></pre>
+
+<h4 id="c">C</h4>
+
+<pre><code class="language-c">printf("Hello World");
+</code></pre>
+:ET
