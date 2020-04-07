@@ -697,6 +697,11 @@ body.active-side {
     #menu ul {
         padding: 80px 30px 80px 30px;
     }
+    .related-posts {
+        h2 {
+            font-size: 1.2rem;
+        }
+    }
 }
 @media (max-width: 480px) {
     .newsletter {
