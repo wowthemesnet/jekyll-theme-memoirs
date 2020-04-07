@@ -693,6 +693,10 @@ body.active-side {
         display:inline-block;
         margin: 10px 15px !important;
     }
+    
+    #menu ul {
+        padding: 80px 30px 80px 30px;
+    }
 }
 @media (max-width: 480px) {
     .newsletter {
@@ -711,5 +715,13 @@ body.active-side {
     }
     .article-post {
         font-size:15px;
+    }
+    .wrap-search {
+        .fa-search {
+            display:none;
+        }
+        .form-control {
+            height:30px;
+        }
     }
 }
