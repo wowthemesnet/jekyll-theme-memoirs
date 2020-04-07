@@ -590,7 +590,13 @@ img, img:hover {
          display:none;
     }
 }
-
+body.active-side {
+    .bd-search {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s linear;
+    }
+}
 //footer
 .footer {
     margin-top:120px;
@@ -652,5 +658,27 @@ img, img:hover {
             padding: 4px 10px;
             min-width: 228px;
         }
+    }
+}
+
+@media (max-width: 600px) {
+    .nav-icon, .sidebar, .share, .wrap-search {
+        position:relative;
+    }
+    .container {
+        padding-left:15px;
+    }
+    .site-content {
+        padding-top:0;
+    }
+    .bd-search {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s linear;
+    }
+    .wrap-search {
+        right: 25px;
+        display: flex;
+        left: unset;
     }
 }
