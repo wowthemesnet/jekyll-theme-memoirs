@@ -658,7 +658,7 @@ body.active-side {
             padding: 4px 10px;
             min-width: 200px;
         }
-        .newsletter .mc-field-group input[type="submit"] {
+        .mc-field-group input[type="submit"] {
             padding: 4px 10px;
         }
     }
@@ -692,5 +692,13 @@ body.active-side {
     .share ul li {
         display:inline-block;
         margin: 10px 15px !important;
+    }
+}
+@media (max-width: 480px) {
+    .newsletter {
+        .mc-field-group input[type="email"] {
+            min-width:170px;
+            width: 170px;
+        }
     }
 }
