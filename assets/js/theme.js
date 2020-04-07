@@ -64,91 +64,86 @@ if (raf) raf(function () {
 else window.addEventListener('load', loadDeferredStyles);
 
 
+// Reset animations on page: body.preload
+setTimeout(function(){
+	document.body.className="";
+},500);
 
-
-
-
-
-	// Reset animations on page: body.preload
-	setTimeout(function(){
-		document.body.className="";
-	},500);
-	
-	// Open/close navigation when clicked .nav-icon
-	$(document).ready(function(){
-		$('.nav-icon').click(function(){
-			$('.nav-icon').toggleClass('active');
-		});
-		$(".nav-icon").click(function(){
-			$("#menu").toggleClass('active');
-		});
-		$(".nav-icon").click(function(){
-			$("#blackover-nav").toggleClass('active');
-		});
-		$(".nav-icon").click(function(){
-			$("body").toggleClass('active-side');
-		});
+// Open/close navigation when clicked .nav-icon
+$(document).ready(function(){
+	$('.nav-icon').click(function(){
+		$('.nav-icon').toggleClass('active');
 	});
-	
-	// Close navigation when clicked .blackover (Black background)
-	$(document).ready(function(){
-		$("#blackover-nav").click(function(){
-			$(".nav-icon").removeClass('active');
-		});
-		$("#blackover-nav").click(function(){
-			$("#menu").removeClass('active');
-		});
-		$("#blackover-nav").click(function(){
-			$("#blackover-nav").removeClass('active');
-		});
-		$("#blackover-nav").click(function(){
-			$("body").removeClass('active-side');
-		});
+	$(".nav-icon").click(function(){
+		$("#menu").toggleClass('active');
 	});
-	
-	// Grid selector Inspiration
-	$(document).ready(function(){
-		$(".grid-selector").click(function(){
-			$(".grid-selector").toggleClass('active');
-		});
-		$(".grid-selector").click(function(){
-			$(".post").toggleClass('active');
-		});
+	$(".nav-icon").click(function(){
+		$("#blackover-nav").toggleClass('active');
 	});
-	
-	$(document).keyup(function(e) {
-		if (e.keyCode == 27) { 
-			$(".nav-icon").removeClass('active');
-			$("#menu").removeClass('active');
-			$("#blackover-nav").removeClass('active');
-			$("body").removeClass('active-side');
+	$(".nav-icon").click(function(){
+		$("body").toggleClass('active-side');
+	});
+});
+
+// Close navigation when clicked .blackover (Black background)
+$(document).ready(function(){
+	$("#blackover-nav").click(function(){
+		$(".nav-icon").removeClass('active');
+	});
+	$("#blackover-nav").click(function(){
+		$("#menu").removeClass('active');
+	});
+	$("#blackover-nav").click(function(){
+		$("#blackover-nav").removeClass('active');
+	});
+	$("#blackover-nav").click(function(){
+		$("body").removeClass('active-side');
+	});
+});
+
+// Grid selector Inspiration
+$(document).ready(function(){
+	$(".grid-selector").click(function(){
+		$(".grid-selector").toggleClass('active');
+	});
+	$(".grid-selector").click(function(){
+		$(".post").toggleClass('active');
+	});
+});
+
+$(document).keyup(function(e) {
+	if (e.keyCode == 27) { 
+		$(".nav-icon").removeClass('active');
+		$("#menu").removeClass('active');
+		$("#blackover-nav").removeClass('active');
+		$("body").removeClass('active-side');
+	}
+});
+
+
+// remove all :hover stylesheets on mobile
+function hasTouch() {
+return 'ontouchstart' in document.documentElement
+		|| navigator.maxTouchPoints > 0
+		|| navigator.msMaxTouchPoints > 0;
+}
+
+if (hasTouch()) { 
+	try {
+		for (var si in document.styleSheets) {
+			var styleSheet = document.styleSheets[si];
+			if (!styleSheet.rules) continue;
+
+			for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
+				if (!styleSheet.rules[ri].selectorText) continue;
+
+				if (styleSheet.rules[ri].selectorText.match(':hover')) {
+					styleSheet.deleteRule(ri);
+				}
+			}
 		}
-	});
-	
-
-	// remove all :hover stylesheets on mobile
-	function hasTouch() {
-    return 'ontouchstart' in document.documentElement
-           || navigator.maxTouchPoints > 0
-           || navigator.msMaxTouchPoints > 0;
-	}
-
-	if (hasTouch()) { 
-	    try {
-	        for (var si in document.styleSheets) {
-	            var styleSheet = document.styleSheets[si];
-	            if (!styleSheet.rules) continue;
-	
-	            for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
-	                if (!styleSheet.rules[ri].selectorText) continue;
-	
-	                if (styleSheet.rules[ri].selectorText.match(':hover')) {
-	                    styleSheet.deleteRule(ri);
-	                }
-	            }
-	        }
-	    } catch (ex) {}
-	}
+	} catch (ex) {}
+}
 
 
 $(document).ready(function(){

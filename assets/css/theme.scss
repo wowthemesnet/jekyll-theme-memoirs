@@ -682,4 +682,12 @@ body.active-side {
         left: unset;
         z-index:0;
     }
+    .share {
+        display: flex;
+        align-items:center;
+    }
+    .share ul li {
+        display:inline-block;
+        margin: 10px 15px !important;
+    }
 }
