@@ -1,4 +1,4 @@
-Theme License: https://bootstrapstarter.com/license/
+Theme License: MIT (https://bootstrapstarter.com/license/)
 
 Credits: 
 - Letter PNG Designed By starwash from <a href="https://pngtree.com/">Pngtree.com</a>
