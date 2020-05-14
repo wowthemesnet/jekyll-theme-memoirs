@@ -68,6 +68,22 @@ pre[class*="language-"] {
 	white-space: normal;
 }
 
+.header-il {
+	display: inline; 
+	float: right;
+}
+
+.header-il-a{
+	display: block; 
+	padding: 1em;
+	font-size: 20px;
+	color : #6C77BE;
+}
+
+.header-il .header-il-a li a:hover{
+	color : #FFFFFF;
+}
+
 .token.comment,
 .token.prolog,
 .token.doctype,
