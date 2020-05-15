@@ -1,10 +1,13 @@
 ---
 layout: page
-title: Contact
+title: 
 permalink: /contact
 comments: false
 ---
 
+![contact iamge](/assets/images/makinarocks_contact.png)
+
+<!-- 
 <form action="https://formspree.io/{{site.email}}" method="POST">    
 <p class="mb-4">Please send your message to {{site.name}}. We will reply as soon as possible!</p>
 <div class="form-group row">
@@ -17,4 +20,4 @@ comments: false
 </div>
 <textarea rows="8" class="form-control mb-3" name="message" placeholder="Message*" required></textarea>    
 <input class="btn btn-dark" type="submit" value="Send">
-</form>
+</form> -->
