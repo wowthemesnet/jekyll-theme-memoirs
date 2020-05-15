@@ -1,12 +1,12 @@
 ---
 layout: post
 title: Introduction to Deep Anomaly Detection
-author: sal
+author: ki hyun kim
 categories: [ anomaly_detection ]
 image: assets/images/20191212/1.png
 ---
 
-# Introduction to Deep Anomaly Detection
+## Introduction
 
 이번 포스트에서는 Anomaly Detection에 대해 소개해보고자 합니다.
 Anomaly detection(이상탐지) 알고리즘은 주어진 샘플에 대한 정상 여부를 판별하기 위한 알고리즘 입니다.

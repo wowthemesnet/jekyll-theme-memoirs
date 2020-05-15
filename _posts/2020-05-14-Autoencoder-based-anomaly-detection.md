@@ -1,12 +1,12 @@
 ---
 layout: post
 title: Autoencoder based Anomaly Detection
-author: sal
+author: ki hyun kim
 categories: [ anomaly_detection ]
 image: assets/images/20191215/1.png
 ---
 
-# Autoencoder based Anomaly Detection
+## Introduction
 
 이번 포스팅에서는 오토인코더 기반의 이상탐지(anomaly detection)에 대해서 살펴보도록 하겠습니다.
 오토인코더는 입력을 그대로 출력(복원)해내도록 하는 목적 함수를 갖습니다.
