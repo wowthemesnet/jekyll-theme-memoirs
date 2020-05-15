@@ -228,7 +228,7 @@ MSE 손실 함수는 불확실한 부분에 대해서는 평균값으로 예측�
 하지만 anomaly detection은 테스트 과정에서 샘플이 주어지면 이를 차원 축소 이후에 복원하는 과정을 거쳐야 하기 때문에, 차원 축소를 위한 모듈이 필요합니다.
 
 따라서 기존의 GAN 기반의 anomaly detection 방법들은 이를 해결하기 위한 여러가지 방법들을 제시하였습니다.
-예를 들어 AnoGAN [9]의 경우에는 이를 해결하기 위해서 generator로부터 생성된 $\hat{x}$ 과 $x$ 와의 차이를 최소화하는 latent variable $z$ 를 찾도록 back-propagation을 수행하는 방법을 수행합니다. — 추후 GAN에 대한 anomaly detection 포스트를 다루도록 하겠습니다.
+예를 들어 AnoGAN [9]의 경우에는 이를 해결하기 위해서 generator로부터 생성된 $$\hat{x}$$ 과 $$x$$ 와의 차이를 최소화하는 latent variable $$z$$ 를 찾도록 back-propagation을 수행하는 방법을 수행합니다. — 추후 GAN에 대한 anomaly detection 포스트를 다루도록 하겠습니다.
 
 아쉽게도 MSE의 단점을 보완하고자 제안된 GAN의 경우에는 CNN에서만 동작할뿐더러, generator와 discriminator의 균형있는 학습도 굉장히 큰 장애물로 작용합니다.
 또한 reconstruction error가 낮다고 무조건 모델의 성능이 좋은 것도 아님을 실험적으로 알 수 있었으므로, 마키나락스는 주로 오토인코더에 기반한 anomaly detection을 수행합니다.
