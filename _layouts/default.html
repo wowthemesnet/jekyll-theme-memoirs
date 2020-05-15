@@ -35,9 +35,12 @@
 {% endif %}
 
 {% capture layout %}{% if page.layout %}layout-{{ page.layout }}{% endif %}{% endcapture %}
+
 <body>
+<!-- Begin HEADER
+================================================== -->
     <div class="container">
-        <ul id="header-ul" style="list-style-type: none;margin: 0;padding-right: 1em;">
+        <ul id="header-ul">
             <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contact" >Contact</a></li>       
             <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/about">About</a></li>
             <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contents">Contents</a></li>      
@@ -87,7 +90,7 @@
     </a>  
    
     <!-- Black -->
-    <div style="height : 6.5em"></div>
+    <!-- <div style="height : 1em"></div> -->
     
     <!-- Site Tag
     ================================================== -->
