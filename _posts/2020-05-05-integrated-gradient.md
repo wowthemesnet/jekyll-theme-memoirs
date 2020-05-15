@@ -1,9 +1,6 @@
 ---
 title: "Integrated Gradient 정리글"
-toc: true
-branch: master
-badges: true
-comments: true
+author: wontak ryu
 categories: ['deeplearning', 'XAI']
 layout: post
 ---
