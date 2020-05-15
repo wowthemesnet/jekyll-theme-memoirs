@@ -68,6 +68,12 @@ pre[class*="language-"] {
 	white-space: normal;
 }
 
+.header-ul {
+	list-style-type: none; 
+	margin: 0; 
+	padding-right: 1em;
+}
+
 .header-il {
 	display: inline; 
 	float: right;
