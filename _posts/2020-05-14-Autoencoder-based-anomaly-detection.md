@@ -1,8 +1,9 @@
 ---
+layout: post
 title: Autoencoder based Anomaly Detection
-key: 20200514
-tags: AnomalyDetection
-category: blog
+author: sal
+categories: [ anomaly_detection ]
+image: assets/images/20191215/1.png
 ---
 
 # Autoencoder based Anomaly Detection

@@ -1,8 +1,9 @@
 ---
+layout: post
 title: Introduction to Deep Anomaly Detection
-key: 20200514
-tags: AnomalyDetection
-category: blog
+author: sal
+categories: [ anomaly_detection ]
+image: assets/images/20191212/1.png
 ---
 
 # Introduction to Deep Anomaly Detection
