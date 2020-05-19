@@ -44,6 +44,7 @@
 
 <body>
 
+<div id="body-wrapper">
 
 <!-- defer loading of font and font awesome -->
 <noscript id="deferred-styles">
@@ -54,16 +55,17 @@
 <!-- Begin HEADER
 ================================================== -->
 <div class="container">
-    <ul id="header-ul">
-        <a class="navbar-brand" href="{{ site.baseurl }}/">
-            <img src="{{ site.baseurl }}/{{ site.logo }}" alt="{{ site.name }}" style="width:250px">
-        </a>  
-        <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/" >Home</a></li>
-        <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contents">Contents</a></li>      
-        <!-- <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contact" >Contact</a></li>        -->
-        <!-- <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/about">About</a></li> -->
-        <li class="header-il"><a class="header-il-a" href="http://makinarocks.ai/">About</a></li>
-    </ul>   
+    <div class="masthead">
+        <ul id="header-ul">
+            <a class="navbar-brand" href="{{ site.baseurl }}/" style="	vertical-align: right; display: inline-block;">
+                <img src="{{ site.baseurl }}/{{ site.logo }}" alt="{{ site.name }}" style="width:250px">
+            </a>  
+            <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/" >Home</a></li>
+            <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contents">Contents</a></li>      
+            <!-- <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contact" >Contact</a></li>        -->
+            <!-- <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/about">About</a></li> -->
+            <li class="header-il"><a class="header-il-a" href="http://makinarocks.ai/">About</a></li>
+        </ul>   
 
     <!-- Begin Sidebar Navigation
     ================================================== -->
@@ -77,13 +79,17 @@
     <nav id="menu">
         <ul>
             <h3>Navigation</h3>
-            <li><a href="{{ site.baseurl }}/">Home</a></li>
+            <li><a class="header-il-a" href="{{ site.baseurl }}/" >Home</a></li>
+            <li><a class="header-il-a" href="{{ site.baseurl }}/contents">Contents</a></li>      
+            <li><a class="header-il-a" href="http://makinarocks.ai/">About</a></li>
+
+            <!-- <li><a href="{{ site.baseurl }}/">Home</a></li>
             <li><a href="{{ site.baseurl }}/about">About <span class="badge badge-primary">Memoirs Jekyll Theme</span></a></li>
             <li><a target="_blank" href="https://bootstrapstarter.com/bootstrap-templates/jekyll-theme-memoirs/">Get Memoirs</a></li>      
-            <li><a href="{{ site.baseurl }}/contact">Contact</a></li>       
+            <li><a href="{{ site.baseurl }}/contact">Contact</a></li>        -->
         </ul>   
     </nav>
-
+    </div>
 </div>
 
 {% include search-lunr.html %}
@@ -136,6 +142,8 @@
     
 </div>
 
+</div> <!-- /.site-content -->
+
 <!-- Begin Footer
 ================================================== -->
 <footer class="footer">
@@ -153,7 +161,6 @@
 <!-- End Footer
 ================================================== -->
 
-</div> <!-- /.site-content -->
 
 <!-- Scripts (if you need bootstrap.js, please add it yourself. I didn't use it for performance reasons, it was not needed in this theme)
 ================================================== -->
@@ -170,5 +177,6 @@
 <script id="dsq-count-scr" src="//{{site.disqus}}.disqus.com/count.js"></script>
 {% endif %}
 
+</div>
 </body>
 </html>
