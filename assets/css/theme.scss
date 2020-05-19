@@ -16,6 +16,12 @@ $enable-rounded: false;
 @import 'stars';
 
 
+html{
+    height: 100%;
+    margin:0;
+    padding:0;  
+}
+
 // general
 body, input, button, select, optgroup, textarea {   
     font-family:Sen;
@@ -23,7 +29,10 @@ body, input, button, select, optgroup, textarea {
 
 body {
     background-color: #bcc2f0;
-    min-height: 100%;
+    // min-height: 100%;
+    height: 100%;
+    margin:0;
+    padding:0;  
     line-height:1.7;
 }
 a {
@@ -32,6 +41,11 @@ a {
 img {
     max-width:100%;
     height:auto;
+}
+
+#body-wrapper {
+	position: relative;
+    min-height:100%;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -612,7 +626,7 @@ body.active-side {
     left: 0;
     bottom: 0;
     width: 100%;
-    // margin-top:120px;
+    margin-top:60px;
     padding:30px;
     border-top:1px solid $gray-200;
     // border-top:1px #9DA3D4;	

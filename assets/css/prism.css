@@ -68,20 +68,21 @@ pre[class*="language-"] {
 	white-space: normal;
 }
 
+.header-il {
+	margin-top: 2em;
+	display: inline; 
+	float: right;
+}
+
 .header-ul {
 	list-style-type: none; 
 	margin: 0; 
 	/* padding-right: 1em; */
 }
-
-/* .header-il {
-	display: inline; 
-	float: right;
-} */
-
-.header-il {
-	vertical-align: middle;
-	display: inline-block;
+@media (max-width: 52em) {
+	.header-il{
+		display: none;
+	}	
 }
 
 .header-il-a{
@@ -96,6 +97,36 @@ pre[class*="language-"] {
 .header-il .header-il-a li a:hover{
 	color : #FFFFFF;
 }
+
+.masthead {
+	padding-top:    1rem;
+	padding-bottom: 1rem;
+	margin-bottom: 3rem;
+	border-bottom: 1px solid #eee;
+  }
+  .masthead-title {
+	margin-top: 0;
+	margin-bottom: 0;
+	color: #505050;
+  }
+  .masthead-title a {
+	color: #505050;
+  }
+  .masthead-title small {
+	font-size: 75%;
+	font-weight: 400;
+	color: #c0c0c0;
+	letter-spacing: 0;
+  }
+  
+  @media (max-width: 48em) {
+	.masthead-title {
+	  text-align: center;
+	}
+	.masthead-title small {
+	  display: none;
+	}
+  }
 
 .token.comment,
 .token.prolog,
