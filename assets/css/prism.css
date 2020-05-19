@@ -69,7 +69,7 @@ pre[class*="language-"] {
 }
 
 .header-il {
-	margin-top: 2em;
+	margin-top: 15px;
 	display: inline; 
 	float: right;
 }
@@ -99,9 +99,9 @@ pre[class*="language-"] {
 }
 
 .masthead {
-	padding-top:    1rem;
-	padding-bottom: 1rem;
-	margin-bottom: 3rem;
+	/* padding-top:    1rem; */
+	/* padding-bottom: 1rem; */
+	/* margin-bottom: 2rem; */
 	border-bottom: 1px solid #eee;
   }
   .masthead-title {

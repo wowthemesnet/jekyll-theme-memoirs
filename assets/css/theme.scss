@@ -18,6 +18,7 @@ $enable-rounded: false;
 
 html{
     height: 100%;
+    // min-height:100%;
     margin:0;
     padding:0;  
 }
@@ -53,6 +54,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 .site-content {
     padding-top:50px;
+    padding-bottom:80px;
 }
 .sitetag {
     font-weight:700;    
@@ -131,8 +133,8 @@ img, img:hover {
 // menu
 .navbar-brand img {
     max-height:80px;
-    margin-bottom:40px;
-    margin-top:40px;
+    margin-bottom:20px;
+    margin-top:25px;
 }
 // .sidebar {
 //     position: fixed;
@@ -148,7 +150,7 @@ img, img:hover {
     position: fixed;
     // left: 15px;
     right: 15px;
-    top: 25px;
+    top: 20px;
     width: 50px;
     height: 50px;
     cursor: pointer;
@@ -635,6 +637,22 @@ body.active-side {
     background-color: #9DA3D4;	
 }
 
+@media (max-width: 768px) {
+    .footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        margin-top:60px;
+        padding:20px;
+        border-top:1px solid $gray-200;
+        // border-top:1px #9DA3D4;	
+        font-size:12px;
+        // background:#fff;
+        background-color: #9DA3D4;	
+    }
+}
+
 //responsive tweaks
 @media (min-width: 768px) {
     .container, .container-sm, .container-md, .container-lg {
@@ -650,7 +668,8 @@ body.active-side {
     .container {
         width: 90%;
         max-width:90%;
-        padding-left:80px;
+        padding-left:50px;
+        padding-right:50px;
     }
     .blog-grid-container {
         grid-template-columns: 1fr 1fr;
@@ -694,11 +713,15 @@ body.active-side {
 }
 
 @media (max-width: 600px) {
-    .nav-icon, .sidebar, .share, .wrap-search {
+    .nav-icon {
+        display: inline;
+    }
+    .sidebar, .share, .wrap-search {
         position:relative;
     }
     .container {
         padding-left:15px;
+        padding-right:15px;
     }
     .site-content {
         padding-top:0;
