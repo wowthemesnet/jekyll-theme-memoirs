@@ -71,19 +71,26 @@ pre[class*="language-"] {
 .header-ul {
 	list-style-type: none; 
 	margin: 0; 
-	padding-right: 1em;
+	/* padding-right: 1em; */
 }
 
-.header-il {
+/* .header-il {
 	display: inline; 
 	float: right;
+} */
+
+.header-il {
+	vertical-align: middle;
+	display: inline-block;
 }
 
 .header-il-a{
 	display: block; 
 	padding: 1em;
 	font-size: 20px;
-	color : #6C77BE;
+	/* color : #6C77BE; */
+	color : #FFFFFF;
+	
 }
 
 .header-il .header-il-a li a:hover{

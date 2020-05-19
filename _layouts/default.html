@@ -43,40 +43,48 @@
 {% capture layout %}{% if page.layout %}layout-{{ page.layout }}{% endif %}{% endcapture %}
 
 <body>
+
+
+<!-- defer loading of font and font awesome -->
+<noscript id="deferred-styles">
+    <link href="https://fonts.googleapis.com/css?family=Sen:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+</noscript>
+
 <!-- Begin HEADER
 ================================================== -->
-    <div class="container">
-        <ul id="header-ul">
-            <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contact" >Contact</a></li>       
-            <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/about">About</a></li>
-            <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contents">Contents</a></li>      
-            <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/" >Home</a></li>
-        </ul>   
-    </div>
-	<!-- defer loading of font and font awesome -->
-	<noscript id="deferred-styles">
-		<link href="https://fonts.googleapis.com/css?family=Sen:400,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-	</noscript>
-
-<!-- Begin Sidebar Navigation
-================================================== -->
-
-<div class="sidebar">    
-</div>   
-<div class="nav-icon">
-    <div class="hamburger-bar"></div>
-</div>
-<div id="blackover-nav" class="blackover"></div>
-<nav id="menu">
-    <ul>
-        <h3>Navigation</h3>
-        <li><a href="{{ site.baseurl }}/">Home</a></li>
-        <li><a href="{{ site.baseurl }}/about">About <span class="badge badge-primary">Memoirs Jekyll Theme</span></a></li>
-        <li><a target="_blank" href="https://bootstrapstarter.com/bootstrap-templates/jekyll-theme-memoirs/">Get Memoirs</a></li>      
-        <li><a href="{{ site.baseurl }}/contact">Contact</a></li>       
+<div class="container">
+    <ul id="header-ul">
+        <a class="navbar-brand" href="{{ site.baseurl }}/">
+            <img src="{{ site.baseurl }}/{{ site.logo }}" alt="{{ site.name }}" style="width:250px">
+        </a>  
+        <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/" >Home</a></li>
+        <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contents">Contents</a></li>      
+        <!-- <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/contact" >Contact</a></li>        -->
+        <!-- <li class="header-il"><a class="header-il-a" href="{{ site.baseurl }}/about">About</a></li> -->
+        <li class="header-il"><a class="header-il-a" href="http://makinarocks.ai/">About</a></li>
     </ul>   
-</nav>
+
+    <!-- Begin Sidebar Navigation
+    ================================================== -->
+
+    <!-- <div class="sidebar">    
+    </div>    -->
+    <div class="nav-icon">
+        <div class="hamburger-bar"></div>
+    </div>
+    <div id="blackover-nav" class="blackover"></div>
+    <nav id="menu">
+        <ul>
+            <h3>Navigation</h3>
+            <li><a href="{{ site.baseurl }}/">Home</a></li>
+            <li><a href="{{ site.baseurl }}/about">About <span class="badge badge-primary">Memoirs Jekyll Theme</span></a></li>
+            <li><a target="_blank" href="https://bootstrapstarter.com/bootstrap-templates/jekyll-theme-memoirs/">Get Memoirs</a></li>      
+            <li><a href="{{ site.baseurl }}/contact">Contact</a></li>       
+        </ul>   
+    </nav>
+
+</div>
 
 {% include search-lunr.html %}
 
@@ -91,9 +99,9 @@
     <!-- Site Logo/Name
     ================================================== -->
    
-    <a class="navbar-brand" href="{{ site.baseurl }}/">
+    <!-- <a class="navbar-brand" href="{{ site.baseurl }}/">
         <img src="{{ site.baseurl }}/{{ site.logo }}" alt="{{ site.name }}">
-    </a>  
+    </a>   -->
    
     <!-- Black -->
     <!-- <div style="height : 1em"></div> -->
