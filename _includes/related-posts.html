@@ -3,7 +3,7 @@
 <div class="{% unless page.categories == empty %} related-posts {% endunless %}">  
 
     {% unless page.categories == empty %}
-    <h2 class="text-center mb-4">Explore more like this</h2>
+    <h2 class="text-center mb-4">Explore more</h2>
     {% endunless %}
     
     <div class="d-flex justify-content-center align-items-center">
@@ -25,7 +25,7 @@
     {% assign maxRelated = 3 %}
     {% assign minCommonTags =  1 %}
     {% assign maxRelatedCounter = 0 %}
-    <div class="blog-grid-container">
+    <div class="blog-grid-container" style="padding-left: 30px; padding-right: 30px;">
         {% for post in site.posts %}
         
             {% assign sameTagCount = 0 %}
