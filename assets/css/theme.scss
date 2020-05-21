@@ -29,8 +29,7 @@ body, input, button, select, optgroup, textarea {
 }
 
 body {
-    background-color: #bcc2f0;
-    // min-height: 100%;
+    background: linear-gradient( to right, #6c77be, #9da3d4 );
     height: 100%;
     margin:0;
     padding:0;  
@@ -631,10 +630,8 @@ body.active-side {
     margin-top:60px;
     padding:30px;
     border-top:1px solid $gray-200;
-    // border-top:1px #9DA3D4;	
     font-size:15px;
-    // background:#fff;
-    background-color: #9DA3D4;	
+    background: linear-gradient( to right, #6c77be, #9da3d4 );
 }
 
 @media (max-width: 768px) {
