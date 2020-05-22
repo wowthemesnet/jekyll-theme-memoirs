@@ -715,6 +715,9 @@ body.active-side {
         grid-row-start: 1;
         grid-row-end: 2;
     }
+    .firstpage .blog-grid-item:nth-child(1) .card-text {
+        display: none;
+    }
     .blog-grid-item .img-thumb, 
     .firstpage .blog-grid-item:nth-child(1) .img-thumb, 
     .firstpage .blog-grid-item:nth-child(2) .img-thumb, 
