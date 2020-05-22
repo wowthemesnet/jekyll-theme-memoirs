@@ -1,23 +1,19 @@
 ---
-title: "Integrated Gradient 정리글"
-author: wontak ryu
-categories: ['deeplearning', 'XAI']
 layout: post
+title: Integrated Gradient
+author: wontak ryu
+categories: [ deeplearning, XAI ]
+image: assets/images/2020-05-05-Integrated-gradient-정리글/integrated_gradient.png
 ---
 
-# Integrated Gradient 정리글
 
 XAI을 위한 다양한 방법론들이 있습니다. 하지만, 정량적으로 이들을 비교하고 성능을 평가하는 것은 쉽지 않습니다. 일반적인 모델들은 accuracy를 가지고 판단할 수 있지만, attribution을 생성하는 모델의 경우에는 정량적으로 평가하기 쉽지 않습니다.
 
 이번글에서는 Attribution 방법론에서 중요한 요소들에 대해서 정리해보고, 이러한 요구조건에 부합하는 integrated gradient에 대해서 설명드리겠습니다.
 
-
-
 ## Motivation
 
 Attribution을 파악한다는 것은 모델의 input과 output간의 관계를 파악하는 것입니다. 즉, model이 예측을 할 때, 어떤 input feature가 해당 예측에 큰 영향을 주었는지 파악하는 것이 주요한 목적입니다.
-
-
 
 Attribution은 아래와 같이 정의될 수 있습니다.
 
@@ -34,8 +30,6 @@ $a_1, \cdots, a_n$은 feature importance와 같은 개념입니다.
 baseline이란, 일종의 비교대상입니다. 예를 들어, object recognition에 경우에 input image의 어느 pixel이 특정 class라고 판단하게 하는지 구할 수 있습니다.  일반적인 경우에는 baseline 이미지는 zero pixel로 두어 구하기도 합니다.
 
 ![](/assets/images/2020-05-05-Integrated-gradient-정리글/ex1.png "Example")
-
-
 
 ## Two Fundamental Axioms
 

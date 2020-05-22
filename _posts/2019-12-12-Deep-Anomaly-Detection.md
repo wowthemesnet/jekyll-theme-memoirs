@@ -6,8 +6,6 @@ categories: [ anomaly_detection ]
 image: assets/images/20191212/1.png
 ---
 
-## Introduction
-
 이번 포스트에서는 Anomaly Detection에 대해 소개해보고자 합니다.
 Anomaly detection(이상탐지) 알고리즘은 주어진 샘플에 대한 정상 여부를 판별하기 위한 알고리즘 입니다.
 예를 들어 신용카드 사기 여부(credit card fraud detection)나, CCTV와 같은 비디오 감시(video surveillance), 자율 자동차 주행(autonomous driving)과 같은 다양한 분야에서 사용될 수 있으며, 특히 마키나락스가 집중하고 있는 산업(제조업)에서는 장비 이상 탐지, 불량 제품 탐지와 같은 중요한 문제를 해결할 수 있습니다.
