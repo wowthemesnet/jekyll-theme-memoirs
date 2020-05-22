@@ -23,10 +23,20 @@ authors:
     web: https://www.wowthemes.net/donate/
     twitter: https://twitter.com/wowthemesnet
     description: "Author of Mediumish, a Bootstrap Medium styled template available for WordPress, HTML, Ghost and Jekyll. You are currently previewing Jekyll template demo."
+    
   ki hyun kim:
     name: ki hyun kim
     display_name: ki hyun kim
-    avatar: 'assets/images/team/ki_hyun.png'
+    avatar: 'assets/images/team/kimkihyun.png'
+    gravatar: 
+    email: 
+    web: 
+    description: 
+    
+  wontak ryu:
+    name: wontak ryu
+    display_name: wontak ryu
+    avatar: 'assets/images/team/ryuwontak.png'
     gravatar: 
     email: 
     web: 
