@@ -293,6 +293,7 @@ img, img:hover {
         }
     }
     .card-text {
+        display:none;
         font-weight:400;
         font-size:16px;
         line-height:1.8;
@@ -313,6 +314,7 @@ img, img:hover {
     }
     .img-thumb {
         object-fit:cover;
+        // object-fit:scale-down;
         height:240px;
         width:100%;
         object-position:top;
@@ -320,34 +322,56 @@ img, img:hover {
 }
 .firstpage {
     .blog-grid-item:nth-child(1) {
+        display:block;
+        .card-text {
+            display:block;
+            font-weight:400;
+            font-size:16px;
+            line-height:1.8;
+            margin-top:20px;
+            width: 100%;
+            text-overflow: ellipsis; 
+            overflow: hidden; 
+            white-space: nowrap;
+        }
         grid-column-start: 1;
         grid-column-end: 3;
         grid-row-start: 1;
-        grid-row-end: 3;
+        grid-row-end: 2;
         flex-direction: column;  
         align-items: flex-start;
         font-size: 1em;
-        padding:0;
+        padding:0px;
         .card-title {
-            font-size:28px;
+            font-size:27px;
         }
         .img-thumb {
-            object-fit:cover;
-            height:400px;
+            // object-fit:cover;
+            object-fit:scale-down;
+            height:230px;
             width:100%;
+            margin-bottom:5px;
             object-position:top;
         }
     }
-
-    .blog-grid-item:nth-child(2), .blog-grid-item:nth-child(3) {
+    // .blog-grid-item:nth-child(2), .blog-grid-item:nth-child(3), .blog-grid-item:nth-child(4)
+    .blog-grid-item:nth-child(2) {
         .card-text {
             display:none;
+            // display:block;
+            // font-weight:400;
+            // font-size:16px;
+            // line-height:1.8;
+            // margin-top:20px;
         }
         .img-thumb {
             object-fit:cover;
-            height:160px;
+            // object-fit:scale-down;
+            height:230px;
             width:100%;
+            margin-bottom:5px;
             object-position:top;
+            // border-bottom: 1rem solid;
         }
         .card-title {
             font-size:18px;
@@ -632,6 +656,8 @@ body.active-side {
     border-top:1px solid $gray-200;
     font-size:15px;
     background: linear-gradient( to right, #6c77be, #9da3d4 );
+    // background: #9da3d4;
+    // background: #6c77be;
 }
 
 @media (max-width: 768px) {
