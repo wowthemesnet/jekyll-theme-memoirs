@@ -132,8 +132,8 @@ img, img:hover {
 // menu
 .navbar-brand img {
     max-height:80px;
-    margin-bottom:20px;
-    margin-top:25px;
+    margin-bottom:5px;
+    margin-top:15px;
 }
 // .sidebar {
 //     position: fixed;
@@ -145,6 +145,11 @@ img, img:hover {
 //     z-index: 1022;
 //     background:#fff;
 // }
+@media (min-width: 52em) {
+	.nav-icon{
+		display: none;
+	}	
+}
 .nav-icon {
     position: fixed;
     // left: 15px;
@@ -249,8 +254,24 @@ img, img:hover {
     }
 }
 
+.page_head_box {
+    padding: 10px;
+    width:100%;
+    background-color: #fff;
+    margin:15px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.page_head {
+    font-size: 36px;
+    color: #6c77be;
+    padding-left: 10px;
+}
+
 .category_box {
     width:100%;
+    margin-left: 10px;
     padding-left: 10px;
     padding-top: 10px;
     padding-bottom: 0px;
