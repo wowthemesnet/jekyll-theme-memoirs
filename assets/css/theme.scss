@@ -257,29 +257,28 @@ img, img:hover {
 .page_head_box {
     padding: 10px;
     width:100%;
-    background-color: #fff;
-    margin:15px;
     margin-top:20px;
     margin-bottom:20px;
 }
 
 .page_head {
-    font-size: 36px;
-    color: #6c77be;
+    font-size: 40px;
+    color: #fff;
     padding-left: 10px;
 }
 
 .category_box {
     width:100%;
     margin-left: 10px;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 0px;
+    padding-left: 15px;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    background-color: #fff;
 }
 
 .category_name {
     font-size: 28px;
-    color: #fff;
+    color: #6c77be;
 }
 
 // blog grid
