@@ -70,6 +70,7 @@ pre[class*="language-"] {
 
 .header-il {
 	margin-top: 15px;
+	margin-bottom: 5px;
 	display: inline; 
 	float: right;
 }
