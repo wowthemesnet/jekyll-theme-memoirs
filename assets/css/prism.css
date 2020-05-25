@@ -90,13 +90,12 @@ pre[class*="language-"] {
 	display: block; 
 	padding: 1em;
 	font-size: 20px;
-	/* color : #6C77BE; */
 	color : #FFFFFF;
 	
 }
 
 .header-il .header-il-a li a:hover{
-	color : #FFFFFF;
+	color : #6893f7;
 }
 
 .masthead {

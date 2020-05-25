@@ -619,7 +619,8 @@ img, img:hover {
 .show-search {
     cursor:pointer;
     &:hover {
-        color: darken($primary,20%);
+        // color: darken($primary,20%);
+        color: #6993F7;
     }
 }
 .bd-search {
@@ -650,7 +651,8 @@ img, img:hover {
         font-size:20px;
         margin-bottom:5px;
         &:hover {
-            color: darken($primary,20%);
+            // color: darken($primary,20%);
+            color: $primary;
         }
     }
     span.body {
