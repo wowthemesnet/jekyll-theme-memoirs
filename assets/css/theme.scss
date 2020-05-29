@@ -192,6 +192,10 @@ img, img:hover {
             &:after {
                 transform: rotate(45deg) translate(0px,0px);
             }
+
+            &:before, &:after {
+                background: $black;
+            }
         }
     }
 }
@@ -805,9 +809,6 @@ body.active-side {
         margin: 10px 15px !important;
     }
     
-    #menu ul {
-        padding: 80px 30px 80px 30px;
-    }
     .related-posts {
         h2 {
             font-size: 1.4rem;
