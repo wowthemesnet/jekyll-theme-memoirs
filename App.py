@@ -27,4 +27,4 @@ title = st.sidebar.title('Lịch sử giao dịch')
 option = st.sidebar.radio(
     '1. Chọn loại giao dịch',
      loaigd['first column'])
-date = st.sidebar.date_input('2. Ngày giao dịch', datetime.datetime.today())
+date = st.sidebar.date_input('2. Ngày giao dịch', datetime.datetime.today()) 
