@@ -4,7 +4,7 @@ import datetime
 # working with sample data.
 import numpy as np
 import pandas as pd
-st.title('S gâu gâu đi :)))')
+st.title('Sủa gâu gâu đi :)))')
 # st.write("Here's our first attempt at using data to create a table:")
 # st.write(pd.DataFrame({
 #     'first column': [1, 2, 3, 4],
