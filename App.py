@@ -1,10 +1,8 @@
 import streamlit as st
 import datetime
-#To make things easier later, we're also importing numpy and pandas for
-# working with sample data.
 import numpy as np
 import pandas as pd
-st.title('Sủa gâu gâu đi :)))')
+st.title('L')
 st.write("Here's our first attempt at using data to create a table:")
 st.write(pd.DataFrame({
     'first column': [1, 2, 3, 4],
@@ -22,7 +20,7 @@ loaigd = pd.DataFrame({
   'second column': ['lichsugia','lichsukien']
 })
 
-Slide bar
+#Slide bar
 title = st.sidebar.title('Lịch sử giao dịch')
 option = st.sidebar.radio(
     '1. Chọn loại giao dịch',
