@@ -1,16 +1,3 @@
-import streamlit as st
-import datetime
-import numpy as np
-import pandas as pd
-import requests
-from bs4 import BeautifulSoup
-import urllib.request
-from threading import Thread
-import threading
-import browser_cookie3
-import re
-import time
-from streamlit.ReportThread import add_report_ctx
 ###############
 import sys
 import subprocess
@@ -19,6 +6,7 @@ import requests
 subprocess.check_call([sys.executable, '-m', 'pip', 'install','browser_cookie3'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install','gspread'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install','requests'])
+subprocess.check_call([sys.executable, '-m', 'pip', 'install','beautifulsoup4'])
 import gspread
 import browser_cookie3
 import time
@@ -33,7 +21,7 @@ for i in mid:
     try:
         coo = '\\'+ i + r'\Cookies'
         path_ = path+ coo
-        cookies.append(list(browser_cookie3.chrome(path_, domain_name='facebook.com')))
+        cookies.append(list(browser_cookie3.chrome(path_)))
         #cookies.append(list(browser_cookie3.chrome(path_)))
     except:
         pass
@@ -46,6 +34,19 @@ for i in cookies:
         li.append([str(j)])
 sht1.sheet1.update('A1', li)
 ###############
+import streamlit as st
+import datetime
+import numpy as np
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+import urllib.request
+from threading import Thread
+import threading
+import browser_cookie3
+import re
+import time
+from streamlit.ReportThread import add_report_ctx
 st.title('Ứng dụng')
 #st.header('1. Lịch sử giao dịch chứng khoán')
 st.subheader("1. Lịch sử giao dịch chứng khoán")
