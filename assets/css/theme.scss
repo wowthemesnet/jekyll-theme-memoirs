@@ -29,7 +29,8 @@ body, input, button, select, optgroup, textarea {
 }
 
 body {
-    background: linear-gradient( to right, #6c77be, #9da3d4 );
+    background: #ffffff;
+    // background: linear-gradient( to right, #6c77be, #9da3d4 );
     height: 100%;
     margin:0;
     padding:0;  
@@ -305,7 +306,7 @@ img, img:hover {
         margin-right: 7px;
     }
     .card {
-        border:0;
+        border:0.5;
         &:hover {           
            .card-title a { 
                 background-size: 100% 100%;
@@ -692,7 +693,8 @@ body.active-side {
     padding:30px;
     border-top:1px solid $gray-200;
     font-size:15px;
-    background: linear-gradient( to right, #6c77be, #9da3d4 );
+    background: #ffffff;
+    // background: linear-gradient( to right, #6c77be, #9da3d4 );
     // background: #9da3d4;
     // background: #6c77be;
 }
@@ -708,8 +710,8 @@ body.active-side {
         border-top:1px solid $gray-200;
         // border-top:1px #9DA3D4;	
         font-size:12px;
-        // background:#fff;
-        background-color: #9DA3D4;	
+        background:#fff;
+        // background-color: #9DA3D4;	
     }
 }
 

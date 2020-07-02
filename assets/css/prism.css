@@ -90,8 +90,9 @@ pre[class*="language-"] {
 	display: block; 
 	padding: 1em;
 	font-size: 20px;
-	color : #FFFFFF;
-	
+	/* color : #FFFFFF; */
+	color : #6c77be;
+	/* color : #000; */
 }
 
 .header-il .header-il-a li a:hover{

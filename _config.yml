@@ -2,7 +2,7 @@
 name: "MakinaRocks Tech Blog"
 title: "MakinaRocks Tech Blog"
 description: "MakinaRocks Tech Blog"
-logo: 'assets/images/makinarocks_logo_white.png'
+logo: 'assets/images/makinarocks_logo.png'
 favicon: 'assets/images/mrx_logo.png'
 url: https://makinarocks.github.io
 baseurl: ""
