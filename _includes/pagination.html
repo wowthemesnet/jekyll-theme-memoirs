@@ -6,11 +6,14 @@
     <span>&laquo; </span>
   {% endif %}
 
-  {% for page in (1..paginator.total_pages) %}
+  {% assign from = paginator.page | minus: 3 | at_least: 1 %}
+  {% assign to = from | plus: 3 | at_most: paginator.total_pages %}
+
+  {% for page in (from..to) %}
     {% if page == paginator.page %}
       <span class="ml-1 mr-1">{{ page }}</span>
     {% elsif page == 1 %}
-      <a class="ml-1 mr-1" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
+      <a class="ml-1 mr-1" href="{{ site.baseurl | append: '/' | replace: '//', '/' }}">{{ page }}</a>
     {% else %}
       <a class="ml-1 mr-1" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
     {% endif %}
