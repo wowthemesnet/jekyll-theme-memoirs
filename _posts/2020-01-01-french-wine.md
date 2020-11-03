@@ -11,6 +11,7 @@ French wine is produced all throughout France, in quantities between 50 and 60 m
 
 > French wine traces its history to the 6th century BC, with many of France's regions dating their wine-making history to Roman times. The wines produced range from expensive wines sold internationally to modest wines usually only seen within France such as the Margnat wines were during the post war period.
 
+{% include youtube_embed.html id="https://youtu.be/EXbX7Dj-Rto" %}  
 Two concepts central to the better French wines are the notion of terroir, which links the style of the wines to the locations where the grapes are grown and the wine is made and the Appellation d'origine contrôlée (AOC) system, replaced by the Appellation d'Origin Protégée (AOP) system in 2012. 
 
 Appellation rules closely define which grape varieties and winemaking practices are approved for classification in each of France's several hundred geographically defined appellations, which can cover regions, villages or vineyards.
