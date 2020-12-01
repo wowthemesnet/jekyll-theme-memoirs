@@ -28,7 +28,7 @@ image: assets/images/2020-12-01-distributed-ppo-implementation/ppo_modules.png
 
 - PPO 학습은 다양한 방식으로 가능 하지만, 해당 논문([arXiv:1707.06347](https://arxiv.org/abs/1707.06347))에서는 길이 T 의 fixed-length trajectory segment들을 수집하여 학습 하는 방식을 제안하고 있습니다.  이때  T 는 episode length 보다는 작은 값은 선택하게 됩니다.
 - trajectory segment 는  N개의  actor ( 강화 학습 환경 + agent) 에서 수집되며,  이렇게 수집된 N개의 trajectory segment를 학습에 사용합니다.
-- 수집된 trajectory 는 N*T timestep이 존재하며, 최종적으로 이를 size M의 mini-batch 형태로 K epoch 만큼 학습을 수행합니다. (M ≤ N*T)
+- 수집된 trajectory 는 NT timestep이 존재하며, 최종적으로 이를 size M의 mini-batch 형태로 K epoch 만큼 학습을 수행합니다. (M ≤ NT)
 - 위 내용을 정리하면 다음과 같습니다. ( from  [arXiv:1707.06347](https://arxiv.org/abs/1707.06347) )
 
 ![PPO_pseudo_code.png](/assets/images/2020-12-01-distributed-ppo-implementation/ppo-pseudo-code.png)
