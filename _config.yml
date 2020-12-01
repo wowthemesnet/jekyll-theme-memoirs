@@ -40,7 +40,17 @@ authors:
     gravatar: 
     email: 
     web: 
-    description: 
+    description:
+
+  jemin kim:
+    name: jemin kim
+    display_name: jemin kim
+    avatar: 'assets/images/team/jeminkim.png'
+    gravatar:
+    email:
+    web:
+    description:
+
 
 # Plugins
 plugins:
@@ -64,11 +74,11 @@ paginate: 6
 paginate_path: /page:num/
     
 # Other
-highlighter: none
+highlighter: rouge
 markdown: kramdown
-kramdown:
-   syntax_highlighter_opts:
-      disable : true
+#kramdown:
+#   syntax_highlighter_opts:
+#      disable : true
 
 
 

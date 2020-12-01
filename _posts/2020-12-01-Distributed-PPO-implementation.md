@@ -3,7 +3,7 @@ layout: post
 title: Distributed PPO 구현
 author: jemin kim
 categories: [ reinforcement_learning ]
-image: assets/images/20191212/1.png (TODO)
+image: assets/images/2020-12-01-distributed-ppo-implementation/ppo_modules.png
 ---
 
 # Distributed PPO 구현
