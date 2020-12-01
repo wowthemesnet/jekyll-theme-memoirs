@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Building a Reinforcement Learning Environment
-author: Yuri Rocha
+author: yuri rocha
 categories: [ reiforcement_learning ]
 image: assets/images/2020-12-01-rl-environment/v4.png
 ---
