@@ -74,11 +74,11 @@ paginate: 6
 paginate_path: /page:num/
     
 # Other
-highlighter: rouge
+highlighter: none
 markdown: kramdown
-#kramdown:
-#   syntax_highlighter_opts:
-#      disable : true
+kramdown:
+   syntax_highlighter_opts:
+      disable : true
 
 
 
