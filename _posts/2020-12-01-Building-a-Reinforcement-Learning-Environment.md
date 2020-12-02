@@ -27,7 +27,7 @@ Off-line programming (OLP) is a robot programming method that lowers the product
 For the training environment, we defined the following requirements:
 
 - **Multi-Platform:**  our application should run on a large variety of operating systems (Windows, MacOS, Linux).
-- **Easily parallelable:** parallelizing the training environment is one of the most effective ways to speed up the training procedure. We want to build an environment that can be compiled into a small executable and generate as many instances as supported by the hardware. The process of parallelizing our environment is explained in detail in our [technical blog post (KR)](DistributedPPO).
+- **Easily parallelable:** parallelizing the training environment is one of the most effective ways to speed up the training procedure. We want to build an environment that can be compiled into a small executable and generate as many instances as supported by the hardware. The process of parallelizing our environment is explained in detail in our [technical blog post (KR)](/Distributed-PPO-implementation).
 - **Ability to integrate with real hardware:** as we are trying to solve a real-world problem, it is paramount that our solution can be applied to real robots without many adaptations.
 - **Ability to integrate with MakinaRocks's Reinforcement Learning Library (RLocks):** we developed our own reinforcement learning library (RLocks), which allows our team to seamlessly apply several state-of-the-art RL algorithms to a given task. Being able to integrate our environment with RLocks can speed up the time taken to test various RL approaches.
 
