@@ -40,7 +40,17 @@ authors:
     gravatar: 
     email: 
     web: 
-    description: 
+    description:
+
+  jemin kim:
+    name: jemin kim
+    display_name: jemin kim
+    avatar: 'assets/images/team/jeminkim.png'
+    gravatar:
+    email:
+    web:
+    description:
+  
   yuri rocha:
     name: yuri rocha
     display_name: Yuri Rocha
