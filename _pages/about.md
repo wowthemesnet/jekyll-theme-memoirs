@@ -1,13 +1,27 @@
 ---
 layout: page
-title: Memoirs, a free minimalist Jekyll blogging theme with modern design 
+title: About
 permalink: /about
 comments: false
-image: assets/images/screenshot.jpg
-imageshadow: true
 ---
 
-This website is a demonstration to see **Memoirs Jekyll theme** in action. The theme is compatible with Github pages, in fact even this demo itself is created with Github Pages and hosted with Github. 
+<div style="margin-bottom: 20px">
+<iframe width="100%" height="400px" src="https://www.youtube.com/embed/YbAUSBOwWDg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
-<a target="_blank" href="https://bootstrapstarter.com/bootstrap-templates/jekyll-theme-memoirs/" class="btn btn-dark"> Get Memoirs for Jekyll &rarr;</a>
+### Vision
+To empower democracy where each person has the right to participate
 
+### Mission
+<ul class='misvis'>
+    <li/>Defending democracy and influence voters goals
+    <li/>Promote voter participation and engage voters
+    <li/>Encourage voter participation and active citizens
+</ul>
+
+### Values
+<ul class='misvis'>
+    <li/>The responsibility of a good government rests in the hands of citizens
+    <li/>Believe in the power of all citizens to create perfect democracy
+    <li/>Citizens have the ability and will to act
+<ul>

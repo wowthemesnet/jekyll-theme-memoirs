@@ -1,36 +1,55 @@
 # Site
-name: "Memoirs"
-title: "Memoirs"
-description: "I will take you on the fabulous world of exploration. Travel, culture, lifestyle. Eat, Pray, Love!"
-logo: 'assets/images/logo.png'
-favicon: 'assets/images/logo.png'
+name: "Votehub"
+title: "Votehub"
+description: "An advocacy platform for every Filipino's right to vote<br><h3>Do you have interesting stories about election or voting, share it with us!</h3>"
+logo: 'assets/images/votehub.svg'
+favicon: 'assets/images/votehub.svg'
 baseurl: /
 google_analytics: 'UA-xxxxxxxx-1'
 disqus: 'demowebsite'
-mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
+mailchimp-list: ''
 include: ["_pages"]
 permalink: /:title/
-email: wowthemesnet@gmail.com
+email: decastrodanield@gmail.com
 
 # Authors
 authors:
-  sal:
-    name: Sal
-    display_name: Sal
-    gravatar: e56154546cf4be74e393c62d1ae9f9d4
-    email: wowthemesnet@gmail.com
-    web: https://www.wowthemes.net/donate/
-    twitter: https://twitter.com/wowthemesnet
-    description: "Author of Mediumish, a Bootstrap Medium styled template available for WordPress, HTML, Ghost and Jekyll. You are currently previewing Jekyll template demo."
-  john:
-    name: John
-    display_name: John    
-    avatar: 'assets/images/avatar.png'
-    gravatar: b1cc14991db7a456fcd761680bbc8f81
-    email: wowthemesnet@gmail.com
-    web: https://www.wowthemes.net
-    twitter: https://twitter.com/wowthemesnet
-    description: "This is the author box. Write a short description of the author here. You are currently previewing Mediumish demo, a Jekyll template compatible with Github pages."
+  daniel:
+    name: Daniel
+    display_name: Daniel
+    email: votehub@mailinator.com
+    web: https://danieldecastro.tech
+    description: "just another person"
+  argie:
+    name: Argie
+    display_name: "Argie Silang"
+    email: votehub@mailinator.com
+    web: https://web.facebook.com/argie.silang
+    description: "just another person"
+  maurine:
+    name: Maurine
+    display_name: "Maurine Joy Lopez"
+    email: votehub@mailinator.com
+    web: https://web.facebook.com/mauilopez.23
+    description: "just another person"
+  freshten:
+    name: Freshten
+    display_name: "Freshten Rosales"
+    email: votehub@mailinator.com
+    web: https://web.facebook.com/freshten.rosales
+    description: "just another person"
+  mark:
+    name: Mark
+    display_name: "Mark Seth Pita"
+    email: votehub@mailinator.com
+    web: https://web.facebook.com/spita27
+    description: "just another person"
+  aira:
+    name: Aira
+    display_name: "Aira Claveria"
+    email: votehub@mailinator.com
+    web: https://duckduckgo.com/?q=aira%20claveria
+    description: "just another person"
 
 # Plugins
 plugins:
