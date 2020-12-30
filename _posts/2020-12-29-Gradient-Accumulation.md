@@ -106,7 +106,7 @@ $\frac{dh_1(x_0)}{dx_0}, \frac{dh_2(x_1)}{dx_0}, \frac{dh_3(x_2)}{dx_0}, \frac{d
 - warm up을 사용하여 안정적인 학습과 수렴정도도 만족스러웠으나, 하이퍼파라미터에 민감하다는 단점이 있었습니다.
 
 
-batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다.
+batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. central limit theorem에 따르면 아래와 같은 수식이 전개됩니다. [5]
 
 $$
 std = \frac{\sigma}{\sqrt{n}}
@@ -195,4 +195,4 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 
 [4] [Gradient Accumulation](https://towardsdatascience.com/gradient-accumulation-overcoming-memory-constraints-in-deep-learning-36d411252d01)
 
-
+[5] [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
