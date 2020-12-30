@@ -2,13 +2,9 @@
 layout: post
 title: Noisy Gradient 다루기
 author: wontak ryu
-categories: [ reinforcement_learning ]
-image: /assets/images/2020-12-29-Noisy-Gradient/front.png
+categories: [ deeplearning]
+image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 ---
-
-
-# Noisy Gradient 다루기
-
 
 ## 들어가며
 
@@ -23,11 +19,26 @@ image: /assets/images/2020-12-29-Noisy-Gradient/front.png
 
 일반적으로 수렴하는 네트워크의 경우 아래의 이미지와 같이 학습이 진행됩니다.
 
-![](/assets/images/2020-12-29-Gradient-Accumulation/gradient.jpeg)
+
+
+<figure class="image" style="align: center;">
+<p align="center">
+  <img src="/assets/images/2020-12-29-Gradient-Accumulation/gradient.jpeg" alt="normal gradient" width="40%">
+  <figcaption style="text-align: center;">normal gradient</figcaption>
+</p>
+</figure>
+
+
 
 반면에, gradient의 분산이 커진다면 아래의 이미지처럼 수렴이 제대로 진행되지 않을 것입니다. 이런 문제를 본 글에서는 'noisy gradient'라고 부르겠습니다.
 
-![](/assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg)
+<figure class="image" style="align: center;">
+<p align="center">
+  <img style="width: 40%" src="/assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg" alt="noisy gradient">
+  <figcaption style="text-align: center;">noisy gradient</figcaption>
+</p>
+</figure>
+
 
 
 실제로 NLP영역에서 많이 활용되고 있는 transformer 구조도 학습시키는게 쉽지 않다고 합니다. 이는 초기 학습에서 발생하는 noisy gradient가 원인입니다. [3]
@@ -37,11 +48,12 @@ image: /assets/images/2020-12-29-Noisy-Gradient/front.png
 
 마키나락스에서도 유사한 문제를 겪었습니다. 내부에서 autoencoder 기반의 anomaly detection task를 수행하고 있습니다. 더 깊은 모델을 사용하고자 기존에 사용하던 autoencoder 모델들에 residual connection을 추가해봤습니다. 하지만, 예상치 못한 문제가 발생했습니다. 레이어가 깊어질수록 학습이 매우 불안정적으로 진행되었습니다.
 
-![](https://rroundtable.github.io/blog/images/2020-06-20-Residual-Autoencoder/residual_ae.jpeg)
-
-
-- g_norm: gradient vector의 norm을 의미합니다.
-- train_loss: 학습 데이터를 기반으로 산출된 loss
+<figure class="image" style="align: center;">
+<p align="center">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/residual_ae.jpeg" alt="rae">
+  <figcaption style="text-align: center;">Residual AE</figcaption>
+</p>
+</figure>
   
 결론적으로 학습에 발생하는 gradient가 noisy하다는 문제가 있었습니다. 그렇다면, 기존의 모델과 대비해서 왜 이런 문제가 발생했는지 살펴보겠습니다.
 
@@ -128,13 +140,25 @@ for i, (inputs, labels) in enumerate(training_set):
 
 ### Gradient Accumulation
 
-아래의 학습 그래프는 residual VAE를 기존의 방법대로 학습시킨 것이다. 보이는 것처럼 학습이 매우 불안정적으로 진행됩니다.
+아래의 학습 그래프는 residual VAE를 기존의 방법대로 학습시킨 것입니다. 보이는 것처럼 학습이 매우 불안정적으로 진행됩니다.
 
-![](/assets/images/2020-12-29-Gradient-Accumulation/vanilla.png)
+<figure class="image" style="align: center;">
+<p align="center">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/vanilla.png" alt="rae">
+  <figcaption style="text-align: center;">vanilla training</figcaption>
+</p>
+</figure>
+
+
 
 반면에, graidient accumulation을 적용하게 되면, 아래의 그래프처럼 안정적으로 학습이 진행됩니다.
 
-![](/assets/images/2020-12-29-Gradient-Accumulation/gradient_accumulation.png)
+<figure class="image" style="align: center;">
+<p align="center">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/gradient_accumulation.png" alt="rae">
+  <figcaption style="text-align: center;">gradient accumulation</figcaption>
+</p>
+</figure>
 
 
 ### Residual VAE vs VAE
@@ -144,14 +168,13 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 - Dataset은 MNIST를 사용했습니다.
 - 실험셋팅은 class 0, 1을 target class를 두고 학습하였으며, 아래의 값은 그것의 평균값입니다.
 
-|n_layers=80       |              |              |                 |                         |
-|---------------|---------------------|---------------------|--------------------------|---------------------------------|
-|metric         |평균 : train_recon_loss|평균 : valid_recon_loss|평균 : predict_recon_roc_auc|표본 표준 편차 : predict_recon_roc_auc|
-|rvae-identity  |30.6490        |30.8460          |0.7266               |0.252                      |
-|vae            |48.7973          |48.1675           |0.6026              |0.3010                      |
+<figure class="image" style="align: center;">
+<p align="center">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/table.png" alt="rae">
+  <figcaption style="text-align: center;">Residual VAE vs VAE</figcaption>
+</p>
+</figure>
 
-
-일반적으로 80개의 레이어를 사용하면, gradient vanishing의 영향으로 underfitting현상이 발생합니다. Residual VAE를 적용하게 되면, 상대적으로 안정적인 학습과 anomaly detection 성능에서도 우수한 것을 확인할 수 있었습니다.
 
 
 ## 끝으로
