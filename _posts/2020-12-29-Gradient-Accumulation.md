@@ -176,6 +176,7 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 </p>
 </figure>
 
+일반적으로 레이어의 수가 80개 정도되면, gradient vanishing의 영향으로 학습이 제대로 진행되지 않습니다. 하지만, Residual connection을 추가해주면, gradient vanishing문제가 해결되며 상대적으로 더 낮은 train loss와 valid loss를 가지는 것을 확인할 수 있으며, anomaly detection task에서도 더 우수한 성능을 보여줍니다.
 
 
 ## 끝으로
