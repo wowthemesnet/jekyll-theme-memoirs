@@ -166,6 +166,7 @@ gradient accumulation을 통해서 불안정적이던 학습을 안정적으로 
 
 Residual VAE와 VAE의 실험을 비교해봤습니다. 
 
+- Anomaly Detection Task를 수행하였습니다.
 - Dataset은 MNIST를 사용했습니다.
 - 실험셋팅은 class 0, 1을 target class를 두고 학습하였으며, 아래의 값은 그것의 평균값입니다.
 
