@@ -61,33 +61,55 @@ warmup을 사용한 이유는 학습 초기에 발생하는 noisy gradient문제
 </p>
 </figure>
   
+
 결론적으로 학습에 발생하는 gradient가 noisy하다는 문제가 있었습니다. 그렇다면, 기존의 모델과 대비해서 왜 이런 문제가 발생했는지 살펴보겠습니다.
 
-아래와 같이 4개의 레이어로 이루어진 간단한 모델이 있다고 가정해보겠습니다. 이 모델은 아래와 같은 forward과정을 가질 것입니다.
 
-- 레이어: $h_0, h_1, h_2, h_3$
-- 각 레이어의 입력: $x_0, x_1, x_2, x_3$
+아래와 같이 $\ell - 1$개의 레이어로 이루어진 간단한 모델(no residual connection)이 있다고 가정해보겠습니다. 이 모델은 아래와 같은 forward과정을 가질 것입니다.
 
-$$
-x_0 \rightarrow h_0(x_0) = x_1 \rightarrow h_1(x_1) = x_2 \rightarrow h_2(x_2) = x_3 \rightarrow h_3(x_3) = x_4 \rightarrow loss
-$$
-
-이 모델에 residual connection을 적용하면 아래와 같은 forward 과정을 가집니다.
-
-- 레이어: $h_0, h_1, h_2, h_3$
-- 각 레이어의 입력: $x_0, x_1, x_2, x_3$
+- $h_i$: i번째 hidden layer의 input
+- $f_i$: i번째 hidden layer
 
 $$
-x_0 \rightarrow h_0(x_0) + x_0 = x_1 \rightarrow h_1(x_1) + x_1 = x_2 \rightarrow h_2(x_2) + x_2 = x_3 \rightarrow h_3(x_3) + x_3 = x_4 \rightarrow loss
+h_0=x, h_\ell=\hat{y}, loss=||x-\hat{y}||_2^2 
+$$
+
+backpropagation은 아래와 같이 전개됩니다.
+
+$$
+\frac{d loss}{d x_0} =\frac{d loss}{d h_{\ell}} \frac{d h_{\ell}}{d h_{\ell - 1}} \cdots \frac{d h_1}{d x_0}
+$$
+
+
+이제 residual connection이 추가된 모델은 어떤 식으로 전개되는지 살펴보겠습니다.
+
+**residual connection**에 대해서 조금 명확히 표현하면, 아래와 같습니다. [13]
+
+- $h_i$: i번째 hidden layer의 input
+- $f_i$: i번째 hidden layer
+  
+$$
+h_{i+1} = f_i(h_i) + h_i
+$$
+
+forward 과정을 전개해보면, 아래와 같습니다.
+
+
+- $h_i$: i번째 hidden layer의 input
+- $f_i$: i번째 hidden layer
+- $h_0=x$
+
+$$
+h_\ell=\hat{y} = h_0 + h_1 + \cdots + f_{\ell - 1}(h_{\ell - 1})
 $$
 
 
 이 모델의 backpropagation과정을 살펴보면 아래와 같습니다.
 
 $$
-\frac{d loss}{d x_0} =\frac{d loss}{d x_4} \frac{d x_4}{d x_0} = 
+\frac{d loss}{d x_0} =\frac{d loss}{d h_{\ell}} \frac{d h_{\ell}}{d x_0} = 
 
-\frac{d loss}{d x_4} \frac{d(x_0 + h_1(x_0) + h_2(x_1) + h_3(x_2) + h_4(x_3))}{d x_0}
+\frac{d loss}{d h_{\ell}} \frac{d(h_0 + h_1 + \cdots + f_{\ell - 1}(h_{\ell - 1}))}{d x_0}
 $$
 
 
@@ -101,7 +123,7 @@ $$
 
 이를 위의 backpropagation의 식에 대입해보면, 기존 모델 대비 더 큰 분산을 가지는 것을 알 수 있습니다.
 
-$\frac{dh_1(x_0)}{dx_0}, \frac{dh_2(x_1)}{dx_0}, \frac{dh_3(x_2)}{dx_0}, \frac{dh_3(x_3)}{dx_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 분산을 가진다고 할 수 있습니다.
+$\frac{d h_1}{dx_0}, \frac{dh_2}{dx_0}, \cdots, \frac{df_{\ell - 1}(h_{\ell - 1})}{dx_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 분산을 가진다고 할 수 있습니다.
 
 
 ## Method: Gradient Accumulation
@@ -114,8 +136,6 @@ $\frac{dh_1(x_0)}{dx_0}, \frac{dh_2(x_1)}{dx_0}, \frac{dh_3(x_2)}{dx_0}, \frac{d
 모멘텀을 사용하는 옵티마이저를 활용하면서, 하이퍼파라미터에 상대적으로 덜 민감한 방법에 대해서 고민하기 시작했고, **large batch size**에서 답을 찾을 수 있었습니다.
 
 
-
-
 batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. central limit theorem에 따르면 아래와 같은 수식이 전개됩니다. [5, 10]
 
 $$
@@ -125,14 +145,13 @@ $$
 따라서, batch size를 키우게되면, 학습이 진행되는 중에 발생하는 nosisy gradient가 경감되는 것을 알 수 있습니다. 다른 연구에서도 batch size가 커지면 학습이 불안정하던 학습이 안정적으로 진행되는 것을 보였습니다. [1]
 
 
-batch size를 키우는 것은 좋지만, gpu의 memory는 한정적입니다. 따라서, 한정된 gpu memory내에서 batch size를 키우는 효과를 내기 위해서, **gradient accumulation**이라는 방법을 사용했습니다. [12]
+batch size를 키우는 것은 좋지만, gpu의 memory는 한정적입니다. 따라서, 한정된 gpu memory내에서 batch size를 키우는 효과를 내기 위해서, **gradient accumulation**이라는 방법을 사용했습니다. [4, 12]
 
 gradient accumulation은 매 step마다 파라미터를 업데이트 하지않고, gradient를 모으다가 일정한 수의 graidient vector들이 모이면 파라미터를 업데이트합니다.
 
 구체적인 알고리즘을 알고싶다면, 아래의 예시코드를 참고하시기 바랍니다.
 
 ```python
-
 model.zero_grad()                                   
 for i, (inputs, labels) in enumerate(training_set):
     predictions = model(inputs)                     
@@ -143,6 +162,8 @@ for i, (inputs, labels) in enumerate(training_set):
         optimizer.step()                            
         model.zero_grad()                            
 ```
+
+이와 더불어, 옵티마이저를 선택할 때도 noisy gradient problem을 고려하여, RAdam을 선택하였습니다. RAdam은 Adam 옵티마이저를 사용시 발생하는 **large variance of the adtheaptive learning rates** 문제를 해결하기 위해 나온 옵티마이저입니다.[1]
 
 
 ## Result
@@ -200,28 +221,32 @@ gradient accumulation을 진행하게 되면, batch size가 커지는 효과를 
 
 혹시 모델의 학습이 불안정하다면, 위와 같은 방법을 고려해보는 것을 추천드립니다.
 
-## Reference
+## References
 
-[1] [RAdam](https://github.com/LiyuanLucasLiu/RAdam)
+<a name="ref-1">[1]</a>  [Liyuan Liu , Haoming Jiang, Pengcheng He, Weizhu Chen, Xiaodong Liu, Jianfeng Gao, and Jiawei Han (2020). On the Variance of the Adaptive Learning Rate and Beyond. the Eighth International Conference on Learning Representations.](https://github.com/LiyuanLucasLiu/RAdam)
 
-[2] [Training Tips for the Transformer Model](https://arxiv.org/abs/1804.00247)
+<a name="ref-2">[2]</a>  [Popel, Martin, and Ondřej Bojar. "Training tips for the transformer model." The Prague Bulletin of Mathematical Linguistics 110.1 (2018): 43-70.](https://arxiv.org/abs/1804.00247)
 
-[3] [On Layer Normalization in the Transformer Architecture](https://arxiv.org/abs/2002.04745)
 
-[4] [Gradient Accumulation](https://towardsdatascience.com/gradient-accumulation-overcoming-memory-constraints-in-deep-learning-36d411252d01)
+<a name="ref-3">[3]</a>  [Xiong, Ruibin, et al. "On layer normalization in the transformer architecture." arXiv preprint arXiv:2002.04745 (2020).](https://arxiv.org/abs/2002.04745)
 
-[5] [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
+<a name="ref-4">[4]</a>  [Gradient Accumulation: Overcoming Memory Constraints in Deep Learning](https://towardsdatascience.com/gradient-accumulation-overcoming-memory-constraints-in-deep-learning-36d411252d01)
 
-[6] [Attention Is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
+<a name="ref-5">[5]</a>  [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
 
-[7] [RMSprop](http://www.cs.toronto.edu/~hinton/coursera/lecture6/lec6.pdf)
 
-[8] [AdaGrad](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)
+<a name="ref-6">[6]</a>  [Vaswani, Ashish, et al. "Attention is all you need." Advances in neural information processing systems. 2017.](https://arxiv.org/pdf/1706.03762.pdf)
 
-[9] [AdaDelta](https://arxiv.org/pdf/1212.5701.pdf)
+<a name="ref-7">[7]</a>  [RMSprop](http://www.cs.toronto.edu/~hinton/coursera/lecture6/lec6.pdf)
 
-[10] [A CLOSER LOOK AT DEEP LEARNING HEURISTICS:LEARNING RATE RESTARTS, WARMUP AND DISTILLATION](https://arxiv.org/pdf/1810.13243.pdf) 
+<a name="ref-8">[8]</a>  [Duchi, John, Elad Hazan, and Yoram Singer. "Adaptive subgradient methods for online learning and stochastic optimization." Journal of machine learning research 12.7 (2011)](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf?source=post_page---------------------------)
 
-[11] [Large Batch Training Does Not Need Warmup](https://arxiv.org/pdf/2002.01576.pdf)
+<a name="ref-9">[9]</a>  [Zeiler, Matthew D. "Adadelta: an adaptive learning rate method." arXiv preprint arXiv:1212.5701 (2012).](https://arxiv.org/pdf/1212.5701.pdf)
 
-[12] [What is Gradient Accumulation in Deep Learning?](https://towardsdatascience.com/what-is-gradient-accumulation-in-deep-learning-ec034122cfa)
+<a name="ref-10">[10]</a>  [Gotmare, Akhilesh, et al. "A closer look at deep learning heuristics: Learning rate restarts, warmup and distillation." arXiv preprint arXiv:1810.13243 (2018).](https://arxiv.org/pdf/1810.13243.pdf)
+
+<a name="ref-11">[11]</a>  [Z. Huo, B. Gu, and H. Huang, “Large batch training does not need warmup,” arXiv preprint arXiv:2002.01576, 2020.](https://arxiv.org/pdf/2002.01576.pdf)
+
+<a name="ref-12">[12]</a>  [What is Gradient Accumulation in Deep Learning?](https://towardsdatascience.com/what-is-gradient-accumulation-in-deep-learning-ec034122cfa)
+
+<a name="ref-13">[13]</a>  [K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learning for image recognition. In CVPR, 2016](https://arxiv.org/pdf/1512.03385.pdf)
