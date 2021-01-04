@@ -17,9 +17,12 @@ image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 
 ## Noisy Gradient Problem
 
-일반적으로 수렴하는 네트워크의 경우 아래의 이미지와 같이 학습이 진행됩니다.
+ Stochastic Gradient Descent(SGD)를 활용한 경우, 일반적으로 미니배치의 gradient는 전체 데이터셋으로부터 구한 gradient에 비해서 오차(variance)가 존재할 수 있습니다. 이때 이 variance가 큰 경우 gradient가 noisy하다고 볼 수 있고, 이는 최적화를 수행할 때 어려움으로 작용할 수 있습니다. 이 포스트에서는 이와 같은 문제를 **noisy gradient problem**이라고 부르도록 하겠습니다.
 
 
+아래의 이미지들은 loss surface에서 noisy gradient problem이 발생하냐에 따른 수렴하는 경향성을 표현한 것들입니다.
+
+SGD를 진행하는 동안, noisy gradient problem이 없다면, 아래 이미지와 같이 정상적으로 수렴할 수 있습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -30,7 +33,7 @@ image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 
 
 
-반면에, gradient의 분산이 커진다면 아래의 이미지처럼 수렴이 제대로 진행되지 않을 것입니다. 이런 문제를 본 글에서는 'noisy gradient'라고 부르겠습니다.
+반면에, noisy gradient problem을 가지고 있는 모델은 아래 이미지와 같이 수렴하는데 어려움을 겪습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -41,8 +44,11 @@ image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 
 
 
-실제로 NLP영역에서 많이 활용되고 있는 transformer 구조도 학습시키는게 쉽지 않다고 합니다. 이는 초기 학습에서 발생하는 noisy gradient가 원인입니다. [3]
+실제로 NLP영역에서 많이 활용되고 있는 transformer 구조도 이와 같은 문제를 겪었습니다. 실제로 'Attention Is All You Need' 논문을 살펴보면, 학습을 위해서 warmup을 사용했습니다.
+warmup을 사용한 이유는 학습 초기에 발생하는 noisy gradient문제를 해결하기 위해서입니다. [3, 6]
 
+
+이처럼 noisy gradient problem은 원활한 학습을 저해하는 주요한 요인입니다. 다음으로 마키나락스에서 새로운 모델을 개발하면서, 겪은 사례에 대해서 설명드리겠습니다.
 
 ## 사례: Residual AutoEncoder with FC layer
 
@@ -100,13 +106,17 @@ $\frac{dh_1(x_0)}{dx_0}, \frac{dh_2(x_1)}{dx_0}, \frac{dh_3(x_2)}{dx_0}, \frac{d
 
 ## Method: Gradient Accumulation
 
-이런 문제를 해결하기 위해서 크게 3가지 정도의 시도를 했으나, 가장 효과적이고 보편적으로 사용할만한 것은 batch size를 키우는 것이였습니다.
+이런 문제를 해결하기 위해서 아래의 두 가지 방법을 시도를 하였으나, 각각 방법은 명확한 한계를 가지고 있었습니다.
 
-- 모멘텀을 사용하지 않는 옵티마이저를 사용하여 안정적인 학습을 진행했으나, 수렴정도가 만족스럽지 않았습니다.
-- warm up을 사용하여 안정적인 학습과 수렴정도도 만족스러웠으나, 하이퍼파라미터에 민감하다는 단점이 있었습니다.
+- 모멘텀을 사용하지 않는 옵티마이저(eg. AdaGrad, AdaDelta, RMSProp)를 사용하여 안정적인 학습을 진행했으나, 수렴정도가 만족스럽지 않았습니다. [7, 8, 9]
+- warm up을 사용하여 안정적인 학습과 수렴정도도 만족스러웠으나, 하이퍼파라미터에 민감하다는 단점이 있었습니다. [10]
+
+모멘텀을 사용하는 옵티마이저를 활용하면서, 하이퍼파라미터에 상대적으로 덜 민감한 방법에 대해서 고민하기 시작했고, **large batch size**에서 답을 찾을 수 있었습니다.
 
 
-batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. central limit theorem에 따르면 아래와 같은 수식이 전개됩니다. [5]
+
+
+batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. central limit theorem에 따르면 아래와 같은 수식이 전개됩니다. [5, 10]
 
 $$
 std = \frac{\sigma}{\sqrt{n}}
@@ -115,7 +125,7 @@ $$
 따라서, batch size를 키우게되면, 학습이 진행되는 중에 발생하는 nosisy gradient가 경감되는 것을 알 수 있습니다. 다른 연구에서도 batch size가 커지면 학습이 불안정하던 학습이 안정적으로 진행되는 것을 보였습니다. [1]
 
 
-batch size를 키우는 것은 좋지만, gpu의 memory는 한정적입니다. 따라서, 한정된 gpu memory내에서 batch size를 키우는 효과를 내기 위해서, gradient accumulation이라는 방법을 사용했습니다. 
+batch size를 키우는 것은 좋지만, gpu의 memory는 한정적입니다. 따라서, 한정된 gpu memory내에서 batch size를 키우는 효과를 내기 위해서, **gradient accumulation**이라는 방법을 사용했습니다. [12]
 
 gradient accumulation은 매 step마다 파라미터를 업데이트 하지않고, gradient를 모으다가 일정한 수의 graidient vector들이 모이면 파라미터를 업데이트합니다.
 
@@ -162,13 +172,14 @@ gradient accumulation을 통해서 불안정적이던 학습을 안정적으로 
 </figure>
 
 
-### Residual VAE vs VAE
+### Evaluation: Residual VAE vs VAE
 
 Residual VAE와 VAE의 실험을 비교해봤습니다. 
 
 - Anomaly Detection Task를 수행하였습니다.
 - Dataset은 MNIST를 사용했습니다.
 - 실험셋팅은 class 0, 1을 target class를 두고 학습하였으며, 아래의 값은 그것의 평균값입니다.
+- target class 0이라는 것은 0은 비정상 데이터, 나머지 클래스는 모두 정상데이터로 두고 실험하는 셋팅을 의미합니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -184,6 +195,9 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 
 이번 글에서 학습과정에서 발생하는 noisy gradient에 대해서 다뤘습니다. 이를 해결하기 위해서 batch size를 키우기 위한 노력을 했습니다. 그 과정에서 발생하는 gpu memory 문제를 해결하기 위해서 gradient accumulation을 활용했습니다.
 
+gradient accumulation을 진행하게 되면, batch size가 커지는 효과를 가지며, 이는 SGD가 GD와 유사한 gradient vector를 가지게 합니다. 따라서 안정적인 학습을 기대할 수 있습니다. 
+
+
 혹시 모델의 학습이 불안정하다면, 위와 같은 방법을 고려해보는 것을 추천드립니다.
 
 ## Reference
@@ -197,3 +211,17 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 [4] [Gradient Accumulation](https://towardsdatascience.com/gradient-accumulation-overcoming-memory-constraints-in-deep-learning-36d411252d01)
 
 [5] [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
+
+[6] [Attention Is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
+
+[7] [RMSprop](http://www.cs.toronto.edu/~hinton/coursera/lecture6/lec6.pdf)
+
+[8] [AdaGrad](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)
+
+[9] [AdaDelta](https://arxiv.org/pdf/1212.5701.pdf)
+
+[10] [A CLOSER LOOK AT DEEP LEARNING HEURISTICS:LEARNING RATE RESTARTS, WARMUP AND DISTILLATION](https://arxiv.org/pdf/1810.13243.pdf) 
+
+[11] [Large Batch Training Does Not Need Warmup](https://arxiv.org/pdf/2002.01576.pdf)
+
+[12] [What is Gradient Accumulation in Deep Learning?](https://towardsdatascience.com/what-is-gradient-accumulation-in-deep-learning-ec034122cfa)
