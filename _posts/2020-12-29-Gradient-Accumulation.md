@@ -83,7 +83,7 @@ $$
 
 이제 residual connection이 추가된 모델은 어떤 식으로 전개되는지 살펴보겠습니다.
 
-**residual connection**에 대해서 조금 명확히 표현하면, 아래와 같습니다. [13]
+**residual connection**에 대해서 수식으로 표현하면, 아래와 같습니다. [13]
 
 - $h_i$: i번째 hidden layer의 input
 - $f_i$: i번째 hidden layer
@@ -136,13 +136,13 @@ $\frac{d h_1}{dx_0}, \frac{dh_2}{dx_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{d
 모멘텀을 사용하는 옵티마이저를 활용하면서, 하이퍼파라미터에 상대적으로 덜 민감한 방법에 대해서 고민하기 시작했고, **large batch size**에서 답을 찾을 수 있었습니다.
 
 
-batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. central limit theorem에 따르면 아래와 같은 수식이 전개됩니다. [5, 10]
+batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. central limit theorem에 따르면 아래와 같은 수식이 전개됩니다. [5]
 
 $$
 std = \frac{\sigma}{\sqrt{n}}
 $$
 
-따라서, batch size를 키우게되면, 학습이 진행되는 중에 발생하는 nosisy gradient가 경감되는 것을 알 수 있습니다. 다른 연구에서도 batch size가 커지면 학습이 불안정하던 학습이 안정적으로 진행되는 것을 보였습니다. [1]
+따라서, batch size를 키우게되면, 학습이 진행되는 중에 발생하는 nosisy gradient가 경감되는 것을 알 수 있습니다. 다른 연구에서도 batch size가 커지면 학습이 불안정하던 학습이 안정적으로 진행되는 것을 보였습니다. [1, 10]
 
 
 batch size를 키우는 것은 좋지만, gpu의 memory는 한정적입니다. 따라서, 한정된 gpu memory내에서 batch size를 키우는 효과를 내기 위해서, **gradient accumulation**이라는 방법을 사용했습니다. [4, 12]
