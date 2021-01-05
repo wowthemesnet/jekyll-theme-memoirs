@@ -266,7 +266,7 @@ Batch size가 커지게되면, Central Limit Theorem을 통해서 gradient의 va
 <a name="ref-12">[12]</a>  [What is Gradient Accumulation in Deep Learning?](https://towardsdatascience.com/what-is-gradient-accumulation-in-deep-learning-ec034122cfa)
 
 <a name="ref-13">[13]</a>  [K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learning for image recognition. In CVPR, 2016](https://arxiv.org/pdf/1512.03385.pdf)
-http://proceedings.mlr.press/v28/sutskever13.pdf
+
 
 <a name="ref-14">[14]</a>  [Sutskever, Ilya, et al. "On the importance of initialization and momentum in deep learning." International conference on machine learning. 2013.](http://proceedings.mlr.press/v28/sutskever13.pdf)
 
