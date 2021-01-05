@@ -10,7 +10,7 @@ image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 
 안녕하세요. 마키나락스의 류원탁입니다.
 
-딥러닝 문제를 다루다보면, gradient의 분산이 커져 학습이 불안정적으로 진행되는 경우가 발생합니다.
+딥러닝 문제를 다루다보면, gradient의 variance이 커져 학습이 불안정적으로 진행되는 경우가 발생합니다.
 
 본 포스트에서는 noisy gradient에 대해서 살펴보고, 해결할 수 있는 방법에 대해서 다루겠습니다.
 
@@ -113,17 +113,17 @@ $$
 $$
 
 
-각 layer마다 발생하는 gradient vector를 random variable로 보면, 위의 gradient vector의 분산은 아래의 식으로 구할 수 있습니다.
+각 layer마다 발생하는 gradient vector를 random variable로 보면, 위의 gradient vector의 variance은 아래의 식으로 구할 수 있습니다.
 
-우선, 두 random variable의 합의 분산은 아래와 같이 전개됩니다.
+우선, 두 random variable의 합의 variance은 아래와 같이 전개됩니다.
 
 $$
 Var(aX + bY) = a^2 Var(X) + b^2 Var(Y) + 2abCov(XY)
 $$
 
-이를 위의 backpropagation의 식에 대입해보면, 기존 모델 대비 더 큰 분산을 가지는 것을 알 수 있습니다.
+이를 위의 backpropagation의 식에 대입해보면, 기존 모델 대비 더 큰 variance을 가지는 것을 알 수 있습니다.
 
-$\frac{d h_1}{dx_0}, \frac{dh_2}{dx_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{dx_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 분산을 가진다고 할 수 있습니다.
+$\frac{d h_1}{dx_0}, \frac{dh_2}{dx_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{dx_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 variance을 가진다고 할 수 있습니다.
 
 
 ## Method: Gradient Accumulation
@@ -233,7 +233,7 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 
 이번 글에서 학습과정에서 발생하는 noisy gradient에 대해서 다뤘습니다. 이를 해결하기 위해서 batch size를 키우기 위한 노력을 했고, 그 과정에서 발생하는 gpu memory 문제를 해결하기 위해서 gradient accumulation을 활용했습니다.
 Gradient accumulation을 진행하게 되면, batch size가 커지는 효과를 가지게 됩니다. [4, 12] 
-Batch size가 커지게되면, Central Limit Theorem을 통해서 gradient의 분산이 줄어드는 효과를 기대할 수 있으며, 이는 안정적인 학습으로 이어질 수 있습니다. [5, 10] 
+Batch size가 커지게되면, Central Limit Theorem을 통해서 gradient의 variance이 줄어드는 효과를 기대할 수 있으며, 이는 안정적인 학습으로 이어질 수 있습니다. [5, 10] 
 
 이번 포스트에서는 noisy gradient에 대해서 다뤘습니다. 혹시 비슷한 문제를 겪고 있으시다면, 도움이 되었으면 좋겠습니다.
 
