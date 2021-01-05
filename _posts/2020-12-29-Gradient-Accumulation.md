@@ -12,7 +12,7 @@ image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 
 딥러닝 문제를 다루다보면, gradient의 분산이 커져 학습이 불안정적으로 진행되는 경우가 발생합니다.
 
-본 블로그에서는 noisy gradient에 대해서 살펴보고, 해결할 수 있는 방법에 대해서 다루겠습니다.
+본 포스트에서는 noisy gradient에 대해서 살펴보고, 해결할 수 있는 방법에 대해서 다루겠습니다.
 
 
 ## Noisy Gradient Problem
@@ -89,7 +89,7 @@ $$
 - $f_i$: i번째 hidden layer
   
 $$
-h_{i+1} = f_i(h_{i-1}) + h_i
+h_{i+1} = f_i(h_{i-1}) + h_{i-1}
 $$
 
 forward 과정을 전개해보면, 아래와 같습니다.
@@ -202,7 +202,9 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 - Anomaly Detection Task를 수행하였습니다.
 - Dataset은 MNIST를 사용했습니다.
 - 실험셋팅은 class 0, 1을 target class를 두고 학습하였으며, 아래의 값은 그것의 평균값입니다.
-- target class 0이라는 것은 0은 비정상 데이터, 나머지 클래스는 모두 정상데이터로 두고 실험하는 셋팅을 의미합니다.
+- target class 0이라는 것은 0은 비정상 데이터, 나머지 클래스는 모두 정상데이터로 두고 실험하는 셋팅을 의미합니다. 따라서 train 및 valid 데이터로 $1, 2, \cdots, 9$ 클래스의 데이터를 활용했으며, test 데이터로 정상데이터와 비정상데이터를 합쳐서 실험했습니다. 참고로 비정상데이터의 비율은 0.35로 두고 실험하였습니다.
+- VAE는 batch size 256, Residual VAE는 batch size 4000으로 두고 실험했습니다.
+- 두 모델모두 200 epochs를 학습하였습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
