@@ -65,9 +65,9 @@ warmup을 사용한 이유는 학습 초기에 발생하는 noisy gradient문제
 결론적으로 학습에 발생하는 gradient가 noisy하다는 문제가 있었습니다. 그렇다면, 기존의 모델과 대비해서 왜 이런 문제가 발생했는지 살펴보겠습니다.
 
 
-아래와 같이 $\ell - 1$개의 레이어로 이루어진 간단한 모델(no residual connection)이 있다고 가정해보겠습니다. 이 모델은 아래와 같은 forward과정을 가질 것입니다.
+아래와 같이 $\ell$개의 레이어로 이루어진 간단한 모델(no residual connection)이 있다고 가정해보겠습니다. 이 모델은 아래와 같은 forward과정을 가질 것입니다.
 
-- $h_i$: i번째 hidden layer의 input
+- $h_i$: i번째 hidden layer의 output
 - $f_i$: i번째 hidden layer
 
 $$
@@ -89,18 +89,18 @@ $$
 - $f_i$: i번째 hidden layer
   
 $$
-h_{i+1} = f_i(h_i) + h_i
+h_{i+1} = f_i(h_{i-1}) + h_i
 $$
 
 forward 과정을 전개해보면, 아래와 같습니다.
 
 
-- $h_i$: i번째 hidden layer의 input
+- $h_i$: i번째 hidden layer의 output
 - $f_i$: i번째 hidden layer
 - $h_0=x$
 
 $$
-h_\ell=\hat{y} = h_0 + h_1 + \cdots + f_{\ell - 1}(h_{\ell - 1})
+h_\ell=\hat{y} = h_0 + h_1 + \cdots + f_{\ell}(h_{\ell - 1})
 $$
 
 
@@ -109,7 +109,7 @@ $$
 $$
 \frac{d loss}{d x_0} =\frac{d loss}{d h_{\ell}} \frac{d h_{\ell}}{d x_0} = 
 
-\frac{d loss}{d h_{\ell}} \frac{d(h_0 + h_1 + \cdots + f_{\ell - 1}(h_{\ell - 1}))}{d x_0}
+\frac{d loss}{d h_{\ell}} \frac{d(h_0 + h_1 + \cdots + f_{\ell}(h_{\ell - 1}))}{d x_0}
 $$
 
 
@@ -123,7 +123,7 @@ $$
 
 이를 위의 backpropagation의 식에 대입해보면, 기존 모델 대비 더 큰 분산을 가지는 것을 알 수 있습니다.
 
-$\frac{d h_1}{dx_0}, \frac{dh_2}{dx_0}, \cdots, \frac{df_{\ell - 1}(h_{\ell - 1})}{dx_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 분산을 가진다고 할 수 있습니다.
+$\frac{d h_1}{dx_0}, \frac{dh_2}{dx_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{dx_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 분산을 가진다고 할 수 있습니다.
 
 
 ## Method: Gradient Accumulation
@@ -164,6 +164,8 @@ for i, (inputs, labels) in enumerate(training_set):
 ```
 
 이와 더불어, 옵티마이저를 선택할 때도 noisy gradient problem을 고려하여, RAdam을 선택하였습니다. RAdam은 Adam 옵티마이저를 사용시 발생하는 **large variance of the adtheaptive learning rates** 문제를 해결하기 위해 나온 옵티마이저입니다.[1]
+
+내부실험을 통해서 Adam보다 RAdam이 더 안정적인 학습을 한다는 것을 알 수 있었습니다. 본 포스트에서는 noisy gradient와 gradient accumulation에 대한 글이므로, 자세히 다루지는 않겠습니다.
 
 
 ## Result
@@ -215,11 +217,10 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 ## 끝으로
 
 이번 글에서 학습과정에서 발생하는 noisy gradient에 대해서 다뤘습니다. 이를 해결하기 위해서 batch size를 키우기 위한 노력을 했습니다. 그 과정에서 발생하는 gpu memory 문제를 해결하기 위해서 gradient accumulation을 활용했습니다.
+gradient accumulation을 진행하게 되면, batch size가 커지는 효과를 가지게 됩니다. [4, 12] 
+batch size가 커지게되면, gradient의 분산이 줄어드는 효과를 기대할 수 있으며, 이는 안정적인 학습으로 이어질 수 있습니다. [5, 10] 
 
-gradient accumulation을 진행하게 되면, batch size가 커지는 효과를 가지며, 이는 SGD가 GD와 유사한 gradient vector를 가지게 합니다. 따라서 안정적인 학습을 기대할 수 있습니다. 
-
-
-혹시 모델의 학습이 불안정하다면, 위와 같은 방법을 고려해보는 것을 추천드립니다.
+이번 포스트에서는 noisy gradient에 대해서 다뤘습니다. 혹시 비슷한 문제를 겪고 있으시다면, 도움이 되었으면 좋겠습니다.
 
 ## References
 
