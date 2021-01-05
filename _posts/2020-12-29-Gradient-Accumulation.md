@@ -163,6 +163,18 @@ for i, (inputs, labels) in enumerate(training_set):
         model.zero_grad()                            
 ```
 
+모멘텀을 사용하는 옵티마이저의 경우(eg. AdaGrad, AdaDelta, RMSProp), 모멘텀을 사용하지 않는 옵티마이저와 비교했을 때 noisy gradient에 더 취약합니다. 이는 모멘텀의 구성을 생각해보면, 쉽게 알 수 있습니다. 모멘텀이라는 것은 결국 이전 모멘텀의 정보를 활용하여 현재 모멘텀을 결정하게 됩니다. 이와 같은 작업이 연쇄적으로 동작하게 되고 이는 아래의 수식처럼 표현할 수 있습니다. 결국 모멘텀을 사용하는 옵티마이저의 경우 학습할 때 발생한 noisy gradient가 모멘텀 백터에 남게 되고, 이는 수렴을 방해하는 요인이 됩니다. [14, 15]
+
+- $p_t$: t시점의 모멘텀
+- $\beta \in (0, 1)$: 모멘텀 팩터
+- $w_t$: t시점의 weight
+- $f(w_t)$: $w_t$를 바탕으로 구한 loss 
+
+
+$$
+p_t = \beta p_{t-1} + \nabla_{w_t} f(w_t) = \sum_{i=0}^{t-1} \beta^{i}\nabla_{w_{t-i}} f(w_{t-i}) + \beta^t p_0
+$$
+
 이와 더불어, 옵티마이저를 선택할 때도 noisy gradient problem을 고려하여, RAdam을 선택하였습니다. RAdam은 Adam 옵티마이저를 사용시 발생하는 **large variance of the adtheaptive learning rates** 문제를 해결하기 위해 나온 옵티마이저입니다.[1]
 
 내부실험을 통해서 Adam보다 RAdam이 더 안정적인 학습을 한다는 것을 알 수 있었습니다. 본 포스트에서는 noisy gradient와 gradient accumulation에 대한 글이므로, 자세히 다루지는 않겠습니다.
@@ -253,3 +265,10 @@ batch size가 커지게되면, central limit theorem을 통해서 gradient의 �
 <a name="ref-12">[12]</a>  [What is Gradient Accumulation in Deep Learning?](https://towardsdatascience.com/what-is-gradient-accumulation-in-deep-learning-ec034122cfa)
 
 <a name="ref-13">[13]</a>  [K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learning for image recognition. In CVPR, 2016](https://arxiv.org/pdf/1512.03385.pdf)
+http://proceedings.mlr.press/v28/sutskever13.pdf
+
+<a name="ref-14">[14]</a>  [Sutskever, Ilya, et al. "On the importance of initialization and momentum in deep learning." International conference on machine learning. 2013.](http://proceedings.mlr.press/v28/sutskever13.pdf)
+
+<a name="ref-15">[15]</a>  [DIVE INTO DEEP LEARNING](https://d2l.ai/chapter_optimization/momentum.html)
+
+ 
