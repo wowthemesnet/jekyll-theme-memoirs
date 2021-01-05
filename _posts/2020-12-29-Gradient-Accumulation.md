@@ -218,7 +218,7 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 
 이번 글에서 학습과정에서 발생하는 noisy gradient에 대해서 다뤘습니다. 이를 해결하기 위해서 batch size를 키우기 위한 노력을 했습니다. 그 과정에서 발생하는 gpu memory 문제를 해결하기 위해서 gradient accumulation을 활용했습니다.
 gradient accumulation을 진행하게 되면, batch size가 커지는 효과를 가지게 됩니다. [4, 12] 
-batch size가 커지게되면, gradient의 분산이 줄어드는 효과를 기대할 수 있으며, 이는 안정적인 학습으로 이어질 수 있습니다. [5, 10] 
+batch size가 커지게되면, central limit theorem을 통해서 gradient의 분산이 줄어드는 효과를 기대할 수 있으며, 이는 안정적인 학습으로 이어질 수 있습니다. [5, 10] 
 
 이번 포스트에서는 noisy gradient에 대해서 다뤘습니다. 혹시 비슷한 문제를 겪고 있으시다면, 도움이 되었으면 좋겠습니다.
 
