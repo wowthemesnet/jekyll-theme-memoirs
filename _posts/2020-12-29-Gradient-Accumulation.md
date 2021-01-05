@@ -89,7 +89,7 @@ $$
 - $f_i$: i번째 hidden layer
   
 $$
-h_{i+1} = f_i(h_{i-1}) + h_{i-1}
+h_{i} = f_i(h_{i-1}) + h_{i-1}
 $$
 
 forward 과정을 전개해보면, 아래와 같습니다.
