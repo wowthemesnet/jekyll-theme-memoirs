@@ -50,7 +50,7 @@ warmup을 사용한 이유는 학습 초기에 발생하는 noisy gradient문제
 
 이처럼 noisy gradient problem은 원활한 학습을 저해하는 주요한 요인입니다. 다음으로 마키나락스에서 새로운 모델을 개발하면서, 겪은 사례에 대해서 설명드리겠습니다.
 
-## 사례: Residual AutoEncoder with FC layer
+## 사례: residual AutoEncoder with FC layer
 
 마키나락스에서도 유사한 문제를 겪었습니다. 내부에서 autoencoder 기반의 anomaly detection task를 수행하고 있습니다. 더 깊은 모델을 사용하고자 기존에 사용하던 autoencoder 모델들에 residual connection을 추가해봤습니다. 하지만, 예상치 못한 문제가 발생했습니다. 레이어가 깊어질수록 학습이 매우 불안정적으로 진행되었습니다.
 
@@ -83,7 +83,7 @@ $$
 
 이제 residual connection이 추가된 모델은 어떤 식으로 전개되는지 살펴보겠습니다.
 
-**residual connection**에 대해서 수식으로 표현하면, 아래와 같습니다. [13]
+**Residual connection**에 대해서 수식으로 표현하면, 아래와 같습니다. [13]
 
 - $h_i$: i번째 hidden layer의 input
 - $f_i$: i번째 hidden layer
@@ -92,7 +92,7 @@ $$
 h_{i} = f_i(h_{i-1}) + h_{i-1}
 $$
 
-forward 과정을 전개해보면, 아래와 같습니다.
+Forward 과정을 전개해보면, 아래와 같습니다.
 
 
 - $h_i$: i번째 hidden layer의 output
@@ -136,18 +136,18 @@ $\frac{d h_1}{dx_0}, \frac{dh_2}{dx_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{d
 모멘텀을 사용하는 옵티마이저를 활용하면서, 하이퍼파라미터에 상대적으로 덜 민감한 방법에 대해서 고민하기 시작했고, **large batch size**에서 답을 찾을 수 있었습니다.
 
 
-batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. central limit theorem에 따르면 아래와 같은 수식이 전개됩니다. [5]
+Batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. **Central Limit Theorem**에 따르면 아래와 같은 수식이 전개됩니다. [5]
 
 $$
 std = \frac{\sigma}{\sqrt{n}}
 $$
 
-따라서, batch size를 키우게되면, 학습이 진행되는 중에 발생하는 nosisy gradient가 경감되는 것을 알 수 있습니다. 다른 연구에서도 batch size가 커지면 학습이 불안정하던 학습이 안정적으로 진행되는 것을 보였습니다. [1, 10]
+따라서, Batch size를 키우게되면, 학습이 진행되는 중에 발생하는 nosisy gradient가 경감되는 것을 알 수 있습니다. 다른 연구에서도 batch size가 커지면 학습이 불안정하던 학습이 안정적으로 진행되는 것을 보였습니다. [1, 10]
 
 
-batch size를 키우는 것은 좋지만, gpu의 memory는 한정적입니다. 따라서, 한정된 gpu memory내에서 batch size를 키우는 효과를 내기 위해서, **gradient accumulation**이라는 방법을 사용했습니다. [4, 12]
+Batch size를 키우는 것은 좋지만, gpu의 memory는 한정적입니다. 따라서, 한정된 gpu memory내에서 batch size를 키우는 효과를 내기 위해서, **gradient accumulation**이라는 방법을 사용했습니다. [4, 12]
 
-gradient accumulation은 매 step마다 파라미터를 업데이트 하지않고, gradient를 모으다가 일정한 수의 graidient vector들이 모이면 파라미터를 업데이트합니다.
+Gradient accumulation은 매 step마다 파라미터를 업데이트 하지않고, gradient를 모으다가 일정한 수의 graidient vector들이 모이면 파라미터를 업데이트합니다.
 
 구체적인 알고리즘을 알고싶다면, 아래의 예시코드를 참고하시기 바랍니다.
 
@@ -182,7 +182,7 @@ $$
 
 ## Result
 
-gradient accumulation을 통해서 불안정적이던 학습을 안정적으로 진행할 수 있었습니다. 또한, 위에서 언급한 Residual VAE를 안정적으로 학습하여 기존의 VAE보다 우수한 성능을 보일 수 있었습니다.
+Gradient accumulation을 통해서 불안정적이던 학습을 안정적으로 진행할 수 있었습니다. 또한, 위에서 언급한 Residual VAE를 안정적으로 학습하여 기존의 VAE보다 우수한 성능을 보일 수 있었습니다.
 
 ### Gradient Accumulation
 
@@ -211,7 +211,7 @@ gradient accumulation을 통해서 불안정적이던 학습을 안정적으로 
 
 Residual VAE와 VAE의 실험을 비교해봤습니다. 
 
-- Anomaly Detection Task를 수행하였습니다.
+- anomaly detection task를 수행하였습니다.
 - Dataset은 MNIST를 사용했습니다.
 - 실험셋팅은 class 0, 1을 target class를 두고 학습하였으며, 아래의 값은 그것의 평균값입니다.
 - target class 0이라는 것은 0은 비정상 데이터, 나머지 클래스는 모두 정상데이터로 두고 실험하는 셋팅을 의미합니다. 따라서 train 및 valid 데이터로 $1, 2, \cdots, 9$ 클래스의 데이터를 활용했으며, test 데이터로 정상데이터와 비정상데이터를 합쳐서 실험했습니다. 참고로 비정상데이터의 비율은 0.35로 두고 실험하였습니다.
@@ -225,14 +225,14 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 </p>
 </figure>
 
-일반적으로 레이어의 수가 80개 정도되면, gradient vanishing의 영향으로 학습이 제대로 진행되지 않습니다. 하지만, Residual connection을 추가해주면, gradient vanishing문제가 해결되며 상대적으로 더 낮은 train loss와 valid loss를 가지는 것을 확인할 수 있으며, anomaly detection task에서도 더 우수한 성능을 보여줍니다.
+일반적으로 레이어의 수가 80개 정도되면, gradient vanishing의 영향으로 학습이 제대로 진행되지 않습니다. 하지만, residual connection을 추가해주면, gradient vanishing문제가 해결되며 상대적으로 더 낮은 train loss와 valid loss를 가지는 것을 확인할 수 있으며, anomaly detection task에서도 더 우수한 성능을 보여줍니다.
 
 
 ## 끝으로
 
-이번 글에서 학습과정에서 발생하는 noisy gradient에 대해서 다뤘습니다. 이를 해결하기 위해서 batch size를 키우기 위한 노력을 했습니다. 그 과정에서 발생하는 gpu memory 문제를 해결하기 위해서 gradient accumulation을 활용했습니다.
-gradient accumulation을 진행하게 되면, batch size가 커지는 효과를 가지게 됩니다. [4, 12] 
-batch size가 커지게되면, central limit theorem을 통해서 gradient의 분산이 줄어드는 효과를 기대할 수 있으며, 이는 안정적인 학습으로 이어질 수 있습니다. [5, 10] 
+이번 글에서 학습과정에서 발생하는 noisy gradient에 대해서 다뤘습니다. 이를 해결하기 위해서 batch size를 키우기 위한 노력을 했고, 그 과정에서 발생하는 gpu memory 문제를 해결하기 위해서 gradient accumulation을 활용했습니다.
+Gradient accumulation을 진행하게 되면, batch size가 커지는 효과를 가지게 됩니다. [4, 12] 
+Batch size가 커지게되면, Central Limit Theorem을 통해서 gradient의 분산이 줄어드는 효과를 기대할 수 있으며, 이는 안정적인 학습으로 이어질 수 있습니다. [5, 10] 
 
 이번 포스트에서는 noisy gradient에 대해서 다뤘습니다. 혹시 비슷한 문제를 겪고 있으시다면, 도움이 되었으면 좋겠습니다.
 
@@ -247,7 +247,7 @@ batch size가 커지게되면, central limit theorem을 통해서 gradient의 �
 
 <a name="ref-4">[4]</a>  [Gradient Accumulation: Overcoming Memory Constraints in Deep Learning](https://towardsdatascience.com/gradient-accumulation-overcoming-memory-constraints-in-deep-learning-36d411252d01)
 
-<a name="ref-5">[5]</a>  [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
+<a name="ref-5">[5]</a>  [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
 
 
 <a name="ref-6">[6]</a>  [Vaswani, Ashish, et al. "Attention is all you need." Advances in neural information processing systems. 2017.](https://arxiv.org/pdf/1706.03762.pdf)
