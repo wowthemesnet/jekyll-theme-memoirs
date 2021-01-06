@@ -216,7 +216,7 @@ Gradient Accumulation을 통해서 불안정적이던 학습을 안정적으로 
 </figure>
 
 
-### Evaluation: Residual VAE vs VAE
+### Evaluation: Residual VAE vs. VAE
 
 Residual VAE와 VAE의 실험을 비교해봤습니다. 
 
@@ -230,7 +230,7 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/table.png" alt="rae">
-  <figcaption style="text-align: center;">[테이블-1] - Residual VAE vs VAE</figcaption>
+  <figcaption style="text-align: center;">[테이블-1] - Residual VAE vs. VAE</figcaption>
 </p>
 </figure>
 
