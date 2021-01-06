@@ -22,23 +22,23 @@ image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 
 아래의 이미지들은 loss surface에서 noisy gradient problem이 발생하냐에 따른 수렴하는 경향성을 표현한 것들입니다.
 
-SGD를 진행하는 동안, noisy gradient problem이 없다면, 아래 이미지와 같이 정상적으로 수렴할 수 있습니다.
+SGD를 진행하는 동안, noisy gradient problem이 없다면, [그림-1]와 같이 정상적으로 수렴할 수 있습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
   <img src="/assets/images/2020-12-29-Gradient-Accumulation/gradient.jpeg" alt="normal gradient" width="40%">
-  <figcaption style="text-align: center;">normal gradient</figcaption>
+  <figcaption style="text-align: center;">[그림-1] - normal gradient</figcaption>
 </p>
 </figure>
 
 
 
-반면에, noisy gradient problem을 가지고 있는 모델은 아래 이미지와 같이 수렴하는데 어려움을 겪습니다.
+반면에, noisy gradient problem을 가지고 있는 모델은 [그림-2]와 같이 수렴하는데 어려움을 겪습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 40%" src="/assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg" alt="noisy gradient">
-  <figcaption style="text-align: center;">noisy gradient</figcaption>
+  <figcaption style="text-align: center;">[그림-2] - noisy gradient</figcaption>
 </p>
 </figure>
 
@@ -52,12 +52,14 @@ warmup을 사용한 이유는 학습 초기에 발생하는 noisy gradient문제
 
 ## 사례: residual AutoEncoder with FC layer
 
-마키나락스에서도 유사한 문제를 겪었습니다. 내부에서 autoencoder 기반의 anomaly detection task를 수행하고 있습니다. 더 깊은 모델을 사용하고자 기존에 사용하던 autoencoder 모델들에 residual connection을 추가해봤습니다. 하지만, 예상치 못한 문제가 발생했습니다. 레이어가 깊어질수록 학습이 매우 불안정적으로 진행되었습니다.
+마키나락스에서도 동일한 문제를 겪었습니다. 마키나락스에서 anomaly detection task를 수행하기 위해서 autoencoder 구조를 활용하고 있습니다. 다양한 도메인 데이터를 다루고 있는데, 데이터의 특성에 따라서 더 깊은 모델이 요구되기도 합니다. 이 때 단순히 레이어를 더 쌓게되면, gradient vanishing의 영향으로 underfitting 문제가 발생합니다. 이런 문제를 해결하고자 기존에 사용하던 autoencoder 모델들에 residual connection을 추가해봤습니다. 
+
+하지만, 예상치 못한 문제가 발생했습니다. 레이어가 깊어질수록 학습이 매우 불안정적으로 진행되었습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/residual_ae.jpeg" alt="rae">
-  <figcaption style="text-align: center;">Residual AE</figcaption>
+  <figcaption style="text-align: center;">[그림-3] - Residual AE</figcaption>
 </p>
 </figure>
   
@@ -77,7 +79,7 @@ $$
 backpropagation은 아래와 같이 전개됩니다.
 
 $$
-\frac{d loss}{d x_0} =\frac{d loss}{d h_{\ell}} \frac{d h_{\ell}}{d h_{\ell - 1}} \cdots \frac{d h_1}{d x_0}
+\frac{d loss}{d h_0} =\frac{d loss}{d h_{\ell}} \frac{d h_{\ell}}{d h_{\ell - 1}} \cdots \frac{d h_1}{d h_0}
 $$
 
 
@@ -100,7 +102,7 @@ Forward 과정을 전개해보면, 아래와 같습니다.
 - $h_0=x$
 
 $$
-h_\ell=\hat{y} = h_0 + h_1 + \cdots + f_{\ell}(h_{\ell - 1})
+h_\ell=\hat{y} = h_0 + f_1(h_0) + f_2(h_1) + \cdots +   f_{\ell}(h_{\ell - 1})
 $$
 
 
@@ -109,7 +111,7 @@ $$
 $$
 \frac{d loss}{d x_0} =\frac{d loss}{d h_{\ell}} \frac{d h_{\ell}}{d x_0} = 
 
-\frac{d loss}{d h_{\ell}} \frac{d(h_0 + h_1 + \cdots + f_{\ell}(h_{\ell - 1}))}{d x_0}
+\frac{d loss}{d h_{\ell}} \frac{d(h_0 + f_1(h_0) + f_2(h_1) + \cdots +   f_{\ell}(h_{\ell - 1}))}{d x_0}
 $$
 
 
@@ -147,7 +149,7 @@ $$
 
 Batch size를 키우는 것은 좋지만, gpu의 memory는 한정적입니다. 따라서, 한정된 gpu memory내에서 batch size를 키우는 효과를 내기 위해서, **gradient accumulation**이라는 방법을 사용했습니다. [4, 12]
 
-Gradient accumulation은 매 step마다 파라미터를 업데이트 하지않고, gradient를 모으다가 일정한 수의 graidient vector들이 모이면 파라미터를 업데이트합니다.
+Gradient accumulation은 매 step마다 파라미터를 업데이트 하지않고, gradient를 모으다가 일정한 수의 gradient vector들이 모이면 파라미터를 업데이트합니다.
 
 구체적인 알고리즘을 알고싶다면, 아래의 예시코드를 참고하시기 바랍니다.
 
@@ -176,34 +178,34 @@ $$
 p_t = \beta p_{t-1} + \nabla_{w_t} f(w_t) = \sum_{i=0}^{t-1} \beta^{i}\nabla_{w_{t-i}} f(w_{t-i}) + \beta^t p_0
 $$
 
-이와 더불어, 옵티마이저를 선택할 때도 noisy gradient problem을 고려하여, RAdam을 선택하였습니다. RAdam은 Adam 옵티마이저를 사용시 발생하는 **large variance of the adtheaptive learning rates** 문제를 해결하기 위해 나온 옵티마이저입니다.[1]
+이와 더불어, 옵티마이저를 선택할 때도 noisy gradient problem을 고려하여, RAdam을 선택하였습니다. RAdam은 Adam 옵티마이저를 사용시 발생하는 **large variance of the adaptive learning rates** 문제를 해결하기 위해 나온 옵티마이저입니다.[1]
 
 내부실험을 통해서 Adam보다 RAdam이 더 안정적인 학습을 한다는 것을 알 수 있었습니다. 본 포스트에서는 noisy gradient와 gradient accumulation에 대한 글이므로, 자세히 다루지는 않겠습니다.
 
 
 ## Result
 
-Gradient accumulation을 통해서 불안정적이던 학습을 안정적으로 진행할 수 있었습니다. 또한, 위에서 언급한 Residual VAE를 안정적으로 학습하여 기존의 VAE보다 우수한 성능을 보일 수 있었습니다.
+Gradient accumulation을 통해서 불안정적이던 학습을 안정적으로 진행할 수 있었습니다. 또한, Residual VAE를 안정적으로 학습하여 기존의 VAE보다 우수한 성능을 보일 수 있었습니다.
 
 ### Gradient Accumulation
 
-아래의 학습 그래프는 residual VAE를 기존의 방법대로 학습시킨 것입니다. 보이는 것처럼 학습이 매우 불안정적으로 진행됩니다.
+아래의 학습 그래프는 residual VAE를 기존의 방법대로 학습시킨 것입니다. [그래프-1]처럼 학습이 매우 불안정적으로 진행됩니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/vanilla.png" alt="rae">
-  <figcaption style="text-align: center;">vanilla training</figcaption>
+  <figcaption style="text-align: center;">[그래프-1] - vanilla training</figcaption>
 </p>
 </figure>
 
 
 
-반면에, graidient accumulation을 적용하게 되면, 아래의 그래프처럼 안정적으로 학습이 진행됩니다.
+반면에, gradient accumulation을 적용하게 되면, [그래프-2]처럼 안정적으로 학습이 진행됩니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/gradient_accumulation.png" alt="rae">
-  <figcaption style="text-align: center;">gradient accumulation</figcaption>
+  <figcaption style="text-align: center;">[그래프-2] - gradient accumulation</figcaption>
 </p>
 </figure>
 
@@ -222,7 +224,7 @@ Residual VAE와 VAE의 실험을 비교해봤습니다.
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/table.png" alt="rae">
-  <figcaption style="text-align: center;">Residual VAE vs VAE</figcaption>
+  <figcaption style="text-align: center;">[테이블-1] - Residual VAE vs VAE</figcaption>
 </p>
 </figure>
 
