@@ -27,7 +27,7 @@ SGD를 진행하는 동안, noisy gradient problem이 없다면, [그림-1]와 �
 <figure class="image" style="align: center;">
 <p align="center">
   <img src="/assets/images/2020-12-29-Gradient-Accumulation/gradient.jpeg" alt="normal gradient" width="40%">
-  <figcaption style="text-align: center;">[그림-1] - normal gradient</figcaption>
+  <figcaption style="text-align: center;">[그림-1] - normal gradient [16]</figcaption>
 </p>
 </figure>
 
@@ -38,7 +38,7 @@ SGD를 진행하는 동안, noisy gradient problem이 없다면, [그림-1]와 �
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 40%" src="/assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg" alt="noisy gradient">
-  <figcaption style="text-align: center;">[그림-2] - noisy gradient</figcaption>
+  <figcaption style="text-align: center;">[그림-2] - noisy gradient [16]</figcaption>
 </p>
 </figure>
 
@@ -59,7 +59,7 @@ warmup을 사용한 이유는 학습 초기에 발생하는 noisy gradient문제
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/residual_ae.jpeg" alt="rae">
-  <figcaption style="text-align: center;">[그림-3] - Residual AE</figcaption>
+  <figcaption style="text-align: center;">[그림-3] - Residual AE [17]</figcaption>
 </p>
 </figure>
   
@@ -279,5 +279,9 @@ Batch size가 커지게되면, Central Limit Theorem을 통해서 gradient의 va
 <a name="ref-14">[14]</a>  [Sutskever, Ilya, et al. "On the importance of initialization and momentum in deep learning." International conference on machine learning. 2013.](http://proceedings.mlr.press/v28/sutskever13.pdf)
 
 <a name="ref-15">[15]</a>  [DIVE INTO DEEP LEARNING](https://d2l.ai/chapter_optimization/momentum.html)
+
+<a name="ref-16">[16]</a>  [그림-1, 그림-2](https://www.cs.umd.edu/~tomg/projects/landscapes/)
+
+<a name="ref-17">[17]</a>  [그림-3](https://medium.com/@ronakchhatbar/autoencoders-bf135267e16e/)
 
  
