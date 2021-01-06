@@ -17,7 +17,7 @@ image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 
 ## Noisy Gradient Problem
 
- Stochastic Gradient Descent(SGD)를 활용한 경우, 일반적으로 미니배치의 gradient는 전체 데이터셋으로부터 구한 gradient에 비해서 오차(Variance)가 존재할 수 있습니다. 이때 이 variance가 큰 경우 Gradient가 Noisy하다고 볼 수 있고, 이는 최적화를 수행할 때 어려움으로 작용할 수 있습니다. 이 포스트에서는 이와 같은 문제를 **Noisy Gradient Problem**이라고 부르도록 하겠습니다.
+ Stochastic Gradient Descent(SGD)를 활용한 경우, 일반적으로 미니배치의 Gradient는 전체 데이터셋으로부터 구한 Gradient에 비해서 오차(Variance)가 존재할 수 있습니다. 이때 이 Variance가 큰 경우 Gradient가 Noisy하다고 볼 수 있고, 이는 최적화를 수행할 때 어려움으로 작용할 수 있습니다. 이 포스트에서는 이와 같은 문제를 **Noisy Gradient Problem**이라고 부르도록 하겠습니다.
 
 
 아래의 이미지들은 loss surface에서 Noisy Gradient Problem이 발생하냐에 따른 수렴하는 경향성을 표현한 것들입니다.
@@ -211,7 +211,7 @@ Gradient Accumulation을 통해서 불안정적이던 학습을 안정적으로 
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/gradient_accumulation.png" alt="rae">
-  <figcaption style="text-align: center;">[그래프-2] - gradient accumulation</figcaption>
+  <figcaption style="text-align: center;">[그래프-2] - Gradient Accumulation</figcaption>
 </p>
 </figure>
 
