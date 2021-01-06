@@ -115,7 +115,7 @@ $$
 
 \frac{d \mathbb{loss}}{d h_{\ell}} \frac{d(h_0 + f_1(h_0) + f_2(h_1) + \cdots +   f_{\ell}(h_{\ell - 1}))}{d h_0}
 
-
+\\
 =\frac{d \mathbb{loss}}{d h_{\ell}} (1 + \frac{d f_1(h_0)}{dh_0} + \frac{df_2(h_1)}{dh_0} + \cdots + \frac{df_{\ell}(h_{\ell - 1})}{dh_0})
 $$
 
