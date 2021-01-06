@@ -73,13 +73,15 @@ warmup을 사용한 이유는 학습 초기에 발생하는 noisy gradient문제
 - $f_i$: i번째 hidden layer
 
 $$
-h_0=x, h_\ell=\hat{y}, loss=||x-\hat{y}||_2^2 
+h_0=x, h_\ell=\hat{y}, \mathbb{loss}=||x-\hat{y}||_2^2 
 $$
 
 backpropagation은 아래와 같이 전개됩니다.
 
 $$
-\frac{d loss}{d h_0} =\frac{d loss}{d h_{\ell}} \frac{d h_{\ell}}{d h_{\ell - 1}} \cdots \frac{d h_1}{d h_0}
+\frac{d \mathbb{loss}}{d h_0} 
+
+= \frac{d \mathbb{loss}}{d h_{\ell}} \frac{d h_{\ell}}{d h_0} =  \frac{d \mathbb{loss}}{d h_{\ell}} \frac{df_{\ell}(h_{\ell - 1})}{dh_0}
 $$
 
 
@@ -109,11 +111,15 @@ $$
 이 모델의 backpropagation과정을 살펴보면 아래와 같습니다.
 
 $$
-\frac{d loss}{d x_0} =\frac{d loss}{d h_{\ell}} \frac{d h_{\ell}}{d x_0} = 
+\frac{d \mathbb{loss}}{d h_0} =\frac{d \mathbb{loss}}{d h_{\ell}} \frac{d h_{\ell}}{d h_0} = 
 
-\frac{d loss}{d h_{\ell}} \frac{d(h_0 + f_1(h_0) + f_2(h_1) + \cdots +   f_{\ell}(h_{\ell - 1}))}{d x_0}
+\frac{d \mathbb{loss}}{d h_{\ell}} \frac{d(h_0 + f_1(h_0) + f_2(h_1) + \cdots +   f_{\ell}(h_{\ell - 1}))}{d h_0}
+
+
+=\frac{d \mathbb{loss}}{d h_{\ell}} (1 + \frac{d f_1(h_0)}{dh_0} + \frac{df_2(h_1)}{dh_0} + \cdots + \frac{df_{\ell}(h_{\ell - 1})}{dh_0})
 $$
 
+간단한 모델(no residual connection)과 residual connection이 추가된 모델의 backpropagation 수식을 비교해보면 $\frac{d h_{\ell}}{d h_0}$을 구성하는 부분에서 차이가 있음을 알 수 있습니다. residual connection을 추가하게되면, gradient vector의 합의 형태로 $\frac{d h_{\ell}}{d h_0}$을 구성하게 됩니다.
 
 각 layer마다 발생하는 gradient vector를 random variable로 보면, 위의 gradient vector의 variance은 아래의 식으로 구할 수 있습니다.
 
@@ -125,7 +131,7 @@ $$
 
 이를 위의 backpropagation의 식에 대입해보면, 기존 모델 대비 더 큰 variance을 가지는 것을 알 수 있습니다.
 
-$\frac{d h_1}{dx_0}, \frac{dh_2}{dx_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{dx_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 variance을 가진다고 할 수 있습니다.
+$\frac{d f_1(h_0)}{dh_0}, \frac{df_2(h_1)}{dh_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{dh_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 variance을 가진다고 할 수 있습니다.
 
 
 ## Method: Gradient Accumulation
