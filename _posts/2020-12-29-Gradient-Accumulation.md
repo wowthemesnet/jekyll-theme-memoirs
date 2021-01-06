@@ -144,7 +144,7 @@ $\frac{d f_1(h_0)}{dh_0}, \frac{df_2(h_1)}{dh_0}, \cdots, \frac{df_{\ell}(h_{\el
 모멘텀을 사용하는 옵티마이저를 활용하면서, 하이퍼파라미터에 상대적으로 덜 민감한 방법에 대해서 고민하기 시작했고, **Large Batch Size**에서 답을 찾을 수 있었습니다.
 
 
-Batch size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. **Central Limit Theorem**에 따르면 아래와 같은 수식이 전개됩니다. [5]
+Batch Size를 키우게 되면, 통계학적으로 표준편차가 주는 효과가 있습니다. **Central Limit Theorem**에 따르면 아래와 같은 수식이 전개됩니다. [5]
 
 $$
 std = \frac{\sigma}{\sqrt{n}}
@@ -153,7 +153,7 @@ $$
 따라서, Batch Size를 키우게되면, 학습이 진행되는 중에 발생하는 Noisy Gradient가 경감되는 것을 알 수 있습니다. 다른 연구에서도 Batch Size가 커지면 학습이 불안정하던 학습이 안정적으로 진행되는 것을 보였습니다. [1, 10]
 
 
-Batch size를 키우는 것은 좋지만, Gpu의 Memory는 한정적입니다. 따라서, 한정된 Gpu Memory내에서 Batch Size를 키우는 효과를 내기 위해서, **Gradient Accumulation**이라는 방법을 사용했습니다. [4, 12]
+Batch Size를 키우는 것은 좋지만, Gpu의 Memory는 한정적입니다. 따라서, 한정된 Gpu Memory내에서 Batch Size를 키우는 효과를 내기 위해서, **Gradient Accumulation**이라는 방법을 사용했습니다. [4, 12]
 
 Gradient Accumulation은 매 Step마다 파라미터를 업데이트 하지않고, Gradient를 모으다가 일정한 수의 Gradient Vector들이 모이면 파라미터를 업데이트합니다.
 
