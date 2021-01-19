@@ -128,7 +128,7 @@ $$
 Var(aX + bY) = a^2 Var(X) + b^2 Var(Y) + 2abCov(XY)
 $$
 
-이를 위의 Backpropagation의 식에 대입해보면, 기존 모델 대비 더 큰 Bariance을 가지는 것을 알 수 있습니다.
+이를 위의 Backpropagation의 식에 대입해보면, 기존 모델 대비 더 큰 Variance을 가지는 것을 알 수 있습니다.
 
 $\frac{d f_1(h_0)}{dh_0}, \frac{df_2(h_1)}{dh_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{dh_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 Variance을 가진다고 할 수 있습니다.
 
