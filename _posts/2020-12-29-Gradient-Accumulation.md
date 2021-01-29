@@ -10,7 +10,7 @@ image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 
 안녕하세요. 마키나락스의 류원탁입니다.
 
-딥러닝 문제를 다루다보면, Gradient의 오차(Variance)이 커져 학습이 불안정적으로 진행되는 경우가 발생합니다.
+딥러닝 문제를 다루다보면, Gradient의 오차(Variance)이 커져 학습이 불안정적으로 진행되는 경우가 발생합니다. 여기서 오차라는 표현은 GD에서 나오는 Gradient Vector와 SGD상에서 나오는 Gradient Vector간의 차이를 의미합니다.
 
 본 포스트에서는 Noisy Gradient에 대해서 살펴보고, 해결할 수 있는 방법에 대해서 다루겠습니다.
 
@@ -132,6 +132,24 @@ $$
 
 $\frac{d f_1(h_0)}{dh_0}, \frac{df_2(h_1)}{dh_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{dh_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 Variance을 가진다고 할 수 있습니다.
 
+실제로, AutoEncoder와 Residual AutoEncoder의 Gradient Histogram을 살펴보면, 명확한 차이를 알 수 있습니다. AutoEncoder와 Residual AutoEncoder를 비교해보면, Gradient Histogram이 더 Uniform하게 분포해있는 것을 알 수 있습니다. Gradient Histogram이 수렴이 된 모델일 수록 Sharp한 분포를 보이는 것을 고려해보면, Noisy Gradient Problem이 없다면 더 빠르게 Sharp한 Histogram을 가질 것이라고 기대할 수 있습니다.
+
+[그래프1], [그래프2]를 통해서 상대적으로 Residual AutoEncoder의 Gradient Vector가 Norm이 더 크게 유지되는 것을 알 수 있으며 Gradient Vector의 분산이 클 것으로 유추할 수 있습니다.
+
+<figure class="image" style="align: center;">
+<p align="center">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/ae30-weight.png" alt="ae">
+  <figcaption style="text-align: center;">[그래프1] - AE Gradient Histogram</figcaption>
+</p>
+</figure>
+
+<figure class="image" style="align: center;">
+<p align="center">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-weight.png" alt="rae">
+  <figcaption style="text-align: center;">[그래프2] - RAE Gradient Histogram</figcaption>
+</p>
+</figure>
+
 
 ## Method: Gradient Accumulation
 
@@ -194,23 +212,33 @@ Gradient Accumulation을 통해서 불안정적이던 학습을 안정적으로 
 
 ### Gradient Accumulation
 
-아래의 학습 그래프는 Residual VAE를 기존의 방법대로 학습시킨 것입니다. [그래프1]처럼 학습이 매우 불안정적으로 진행됩니다.
+아래의 [그래프3]은 Residual AutoEncoder를 batch size 6000으로 학습시킨 결과입니다. [그래프2]와 비교해봤을 때, 안정적인 경향성을 보입니다.
+
+<figure class="image" style="align: center;">
+<p align="center">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-6000-weight.png" alt="rae">
+  <figcaption style="text-align: center;">[그래프3] - RAE Gradient Histogram with batch size 6000</figcaption>
+</p>
+</figure>
+
+
+아래의 학습 그래프는 Residual VAE를 기존의 방법대로 학습시킨 것입니다. [그래프4]처럼 학습이 매우 불안정적으로 진행됩니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/vanilla.png" alt="rae">
-  <figcaption style="text-align: center;">[그래프1] - vanilla training</figcaption>
+  <figcaption style="text-align: center;">[그래프4] - vanilla training</figcaption>
 </p>
 </figure>
 
 
 
-반면에, Gradient Accumulation을 적용하게 되면, [그래프2]처럼 안정적으로 학습이 진행됩니다.
+반면에, Gradient Accumulation을 적용하게 되면, [그래프5]처럼 안정적으로 학습이 진행됩니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
   <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/gradient_accumulation.png" alt="rae">
-  <figcaption style="text-align: center;">[그래프2] - Gradient Accumulation</figcaption>
+  <figcaption style="text-align: center;">[그래프5] - Gradient Accumulation</figcaption>
 </p>
 </figure>
 
