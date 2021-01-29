@@ -132,7 +132,7 @@ $$
 
 $\frac{d f_1(h_0)}{dh_0}, \frac{df_2(h_1)}{dh_0}, \cdots, \frac{df_{\ell}(h_{\ell - 1})}{dh_0}$ 각 요소들이 모두 유사한 스케일을 가진다고 가정해보면, 최소 레이어 수 배 만큼 큰 Variance을 가진다고 할 수 있습니다.
 
-실제로, AutoEncoder와 Residual AutoEncoder의 Gradient Histogram을 살펴보면, 명확한 차이를 알 수 있습니다. AutoEncoder와 Residual AutoEncoder를 비교해보면, Gradient Histogram이 더 Uniform하게 분포해있는 것을 알 수 있습니다. Gradient Histogram이 수렴이 된 모델일 수록 Sharp한 분포를 보이는 것을 고려해보면, Noisy Gradient Problem이 없다면 더 빠르게 Sharp한 Histogram을 가질 것이라고 기대할 수 있습니다.
+실제로, AutoEncoder와 Residual AutoEncoder의 Gradient Histogram을 살펴보면, 명확한 차이를 알 수 있습니다. AutoEncoder와 Residual AutoEncoder를 비교해보면, Gradient Histogram이 더 Uniform하게 분포해있는 것을 알 수 있습니다. Gradient Histogram이 수렴이 된 모델일 수록 Sharp한 분포를 보이는 것을 고려해보면, Noisy Gradient Problem이 없다면 더 빠르게 Sharp한 Histogram을 가질 것이라고 기대할 수 있습니다. [18]
 
 [그래프1], [그래프2]를 통해서 상대적으로 Residual AutoEncoder의 Gradient Vector가 Norm이 더 크게 유지되는 것을 알 수 있으며 Gradient Vector의 분산이 클 것으로 유추할 수 있습니다.
 
@@ -313,4 +313,5 @@ Batch Size가 커지게되면, Central Limit Theorem을 통해서 Gradient의 Va
 
 <a name="ref-17">[17]</a>  [Autoencoders — Escape the curse of dimensionality[Websites], (2020, JAN 1)](https://medium.com/@ronakchhatbar/autoencoders-bf135267e16e/)
 
- 
+ <a name="ref-17">[18]</a>  [Exploring Gradients[Websites], (2020, JAN 29)]( https://wandb.ai/site/articles/exploring-gradients)
+
