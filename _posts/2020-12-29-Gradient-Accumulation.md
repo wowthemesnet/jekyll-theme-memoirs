@@ -212,7 +212,7 @@ Gradient Accumulation을 통해서 불안정적이던 학습을 안정적으로 
 
 ### Gradient Accumulation
 
-아래의 [그래프3]은 Residual AutoEncoder를 batch size 6000으로 학습시킨 결과입니다. [그래프2]와 비교해봤을 때, 안정적인 경향성을 보입니다. Step 20을 보면, [그래프2]와 비교했을 때, 더 모여있는 모습을 볼 수 있습니다.
+아래의 [그래프3]은 Residual AutoEncoder를 batch size 6000으로 학습시킨 결과입니다. [그래프2]와 비교해봤을 때, 안정적인 경향성을 보입니다. Step 20을 보면, [그래프2]보다 [그래프3]이 더 모여있는 모습을 볼 수 있습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
