@@ -138,14 +138,14 @@ $\frac{d f_1(h_0)}{dh_0}, \frac{df_2(h_1)}{dh_0}, \cdots, \frac{df_{\ell}(h_{\el
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/ae30-weight.png" alt="ae">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/ae30-hist.png" alt="ae">
   <figcaption style="text-align: center;">[그래프1] - AE Gradient Histogram</figcaption>
 </p>
 </figure>
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-weight.png" alt="rae">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-hist.png" alt="rae">
   <figcaption style="text-align: center;">[그래프2] - RAE Gradient Histogram</figcaption>
 </p>
 </figure>
@@ -216,10 +216,11 @@ Gradient Accumulation을 통해서 불안정적이던 학습을 안정적으로 
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-6000-weight.png" alt="rae">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-6000-hist.png" alt="rae">
   <figcaption style="text-align: center;">[그래프3] - RAE Gradient Histogram with batch size 6000</figcaption>
 </p>
 </figure>
+
 
 
 아래의 학습 그래프는 Residual VAE를 기존의 방법대로 학습시킨 것입니다. [그래프4]처럼 학습이 매우 불안정적으로 진행됩니다.
