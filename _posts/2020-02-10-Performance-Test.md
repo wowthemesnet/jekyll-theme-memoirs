@@ -30,7 +30,7 @@ image:
 내부에 Unittest가 구현되어 있어서, 어느정도의 안전성이 검증된 상태였습니다. 하지만, 마키나락스는 Machine Learning Software를 다루는 조직이기 때문에 더 높은 수준의 Test System이 필요했습니다. 
 
 
-만약 Unittest는 통과하지만, 성능저하를 일으키는 Commit같은 경우에는 추적을 할 수 없다는 문제가 있습니다. 아래의 [그림2]는 실제로 마키나락스에서 겪었던 문제입니다. 여러가지 Branch와 Commit들이 혼재된 상황속에서 성능이 저하되었다는 것을 발견하였습니다.
+만약 Unittest는 통과하지만, 성능저하를 일으키는 Commit같은 경우에는 추적을 할 수 없다는 문제가 있습니다. 아래의 [그림2]는 실제로 마키나락스에서 겪었던 문제입니다. 여러가지 Branch와 Commit들이 혼재된 상황속에서 성능이 저하되었다는 것을 발견하였습니다. 
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -39,7 +39,7 @@ image:
 </p>
 </figure>
 
-이런 문제가 발생했을 때, Debugging 해야할 Search Space는 [그림3]과 같습니다.
+이런 문제가 발생했을 때, Debugging 해야할 Search Space는 [그림3]과 같습니다. 즉, 이전까지의 변화를 모두 살펴봐야 했습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -48,7 +48,7 @@ image:
 </p>
 </figure>
 
-이번 문제의 경우에는 성능저하를 일으키는 원인이 두 개의 Commit이였습니다. 따라서, 두 개의 Commit을 모두 고치지 않으면, 성능저하 이슈는 계속해서 발생합니다. 
+이번 문제의 경우에는 성능저하를 일으키는 원인이 두 개의 Commit이였습니다. 성능저하가 복합적인 원인들에 의해서 발생하면, 해결하는데 더 큰 어려움을 겪습니다. 두 개의 Commit을 모두 고치지 않으면, 성능저하 이슈는 계속해서 발생하기 때문입니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -84,7 +84,7 @@ image:
 
 ## Trial and Errors
 
-Performance Test Pipeline을 만들기 위해서, 여러가지 시행착오를 겪었습니다. 겪었던 시행착오를 통해서, Performance Test Pipeline을 만들기 위해서 필요한 **추상화**에 대해서 설명드리겠습니다.
+Performance Test Pipeline을 만들기 위해서, 여러가지 시행착오를 겪었습니다. 겪었던 시행착오를 통해서, 필요했던 **추상화 과정**에 대해서 설명드리겠습니다.
 
 우선, 자동화 도구로 Jenkins를 활용하였습니다. [1] Jenkins는 소프트웨어 개발 시 지속적으로 통합 서비스를 제공하는 툴입니다. 비교적 높은 자유도가 있었고, 자동화 도구로 접근성이 좋다고 판단했습니다. 
 
@@ -207,10 +207,9 @@ Performance Test Pipeline의 모습을 [그림13]으로 도식화해봤습니다
 
 Performance Test Pipeline을 구성하기 위해서, 여러가지 추상화과정이 필요했습니다. Repository에 독립적으로 작동할 수 있어야 했습니다. 또한, Machine Learning Software(AI)는 많은 컴퓨팅 자원을 요구하기 때문에, 효율적인 자원사용이 필요했습니다. 이를 위해서 Kubernetes를 활용하여 컴퓨팅 자원을 가상화하였습니다. 
 
-Performance Test를 통해서 Search Space를 줄일 수 있었고, Debugging Cost 지수함수 배 만큼 줄일 수 있었습니다.
+Performance Test를 통해서 Search Space를 줄일 수 있었고, Debugging Cost 지수함수 배 만큼 줄일 수 있었습니다. 그리고 클릭 한 번으로 실험을 진행할 수 있다는 것도 굉장히 매력적인 일이였습니다.
 
-
-
+이번 포스트를 통해서 비슷한 문제를 고민하는 분들께 작은 도움이 되었으면 좋겠습니다.
 
 
 ## Reference
