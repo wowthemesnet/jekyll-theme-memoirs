@@ -104,7 +104,7 @@ Regression Test Pipeline을 만들기 위해서, 여러가지 시행착오를 �
 </p>
 </figure>
 
-### Pipeline #2: InDependent on Repository, But Inefficient
+### Pipeline #2: Independent on Repository, But Inefficient
 
 두 번째로 구현한 Pipeline은 아래 [그림7]에서 볼 수 있습니다. Pipeline #1과 다르게 Jenkins Container가 Repository에 정의된 Dockerfile을 기반으로 Regression Test Container를 만듭니다. 이를 통해서 Repository에 의존성을 가지던 문제를 해결할 수 있었습니다. 하지만, Docker Image를 Build하는 작업은 상당히 오랜시간이 걸리기 때문에, 비효율적이라는 문제가 있었습니다.
 
