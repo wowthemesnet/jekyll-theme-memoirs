@@ -11,7 +11,8 @@ image:
 안녕하세요. 마키나락스의 류원탁입니다.
 
 마키나락스는 AI Project를 넘어 AI Product로 나아가고 있습니다. Product로 나아가는 여정 속에서 재미있는 엔지니어링 이슈들이 생겼습니다.
-특히, 마키나락스가 제공하는 Machine Learning Software에 대해서 신속하고 정확한 검증에 대한 필요가 있었습니다.
+특히, 마키나락스가 제공하는 Machine Learning Software에 대해서 신속하고 정확한 검증에 대한 필요가 있었습니다. 잘 알려져있듯이 Machine Learning Software는 Stochastic하게 작동하기 때문에, 일반적인 Unittest로 모든 오류를 잡아내기 힘듭니다.
+
 이번 포스트에서는 Machine Learning Software에 대한 성능검증을 어떤 방식으로 진행하고 있는지 공유드리도록 하겠습니다.
 
 
