@@ -99,7 +99,7 @@ Regression Test Pipeline을 만들기 위해서, 여러가지 시행착오를 �
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img src="/assets/images/2020-02-10-Performance-Test/6.png" alt="Gitflow Workflow" width="40%">
+  <img src="/assets/images/2020-02-10-Performance-Test/6.png" alt="Gitflow Workflow" width="60%">
   <figcaption style="text-align: center;">[그림6] - Pipeline #1</figcaption>
 </p>
 </figure>
@@ -110,7 +110,7 @@ Regression Test Pipeline을 만들기 위해서, 여러가지 시행착오를 �
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img src="/assets/images/2020-02-10-Performance-Test/7.png" alt="Gitflow Workflow" width="40%">
+  <img src="/assets/images/2020-02-10-Performance-Test/7.png" alt="Gitflow Workflow" width="60%">
   <figcaption style="text-align: center;">[그림7] - Pipeline #2</figcaption>
 </p>
 </figure>
@@ -122,7 +122,7 @@ Regression Test Pipeline을 만들기 위해서, 여러가지 시행착오를 �
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img src="/assets/images/2020-02-10-Performance-Test/8.png" alt="Gitflow Workflow" width="40%">
+  <img src="/assets/images/2020-02-10-Performance-Test/8.png" alt="Gitflow Workflow" width="60%">
   <figcaption style="text-align: center;">[그림8] - Pipeline #3</figcaption>
 </p>
 </figure>
@@ -133,7 +133,7 @@ Regression Test Pipeline을 만들기 위해서, 여러가지 시행착오를 �
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img src="/assets/images/2020-02-10-Performance-Test/9.png" alt="Gitflow Workflow" width="40%">
+  <img src="/assets/images/2020-02-10-Performance-Test/9.png" alt="Gitflow Workflow" width="60%">
   <figcaption style="text-align: center;">[그림9] - Problem of Device Dependency</figcaption>
 </p>
 </figure>
