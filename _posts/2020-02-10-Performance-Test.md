@@ -69,12 +69,10 @@ image:
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img src="/assets/images/2020-02-10-Performance-Test/5.png" alt="Gitflow Workflow" width="40%">
+  <img src="/assets/images/2020-02-10-Performance-Test/5.png" alt="Gitflow Workflow" width="60%">
   <figcaption style="text-align: center;">[그림5] - 경우의 수</figcaption>
 </p>
 </figure>
-
-
 <figure class="image" style="align: center;">
 <p align="center">
   <img src="/assets/images/2020-02-10-Performance-Test/graph1.png" alt="Gitflow Workflow" width="40%">
@@ -95,7 +93,7 @@ Regression Test Pipeline을 만들기 위해서, 여러가지 시행착오를 �
 
 ### Pipeline #1: Dependent on Repository
 
-첫 번째로 구현한 Pipeline은 아래 [그림6]에서 볼 수 있습니다. Jenkins Container가 Regression Test 대상이 되는 Repository의 Requiremnts를 미리 가지고 있습니다. 그리고, Test요청을 GitHub에서 보내면, Regression Test를 진행하게 됩니다. 이런 구조는 한 Repository에 의존성을 가지게 된다는 문제를 가지고 있습니다.
+첫 번째로 구현한 Pipeline은 아래 [그림6]에서 볼 수 있습니다. Jenkins Container가 Regression Test 대상이 되는 Repository의 Requiremnts를 미리 가지고 있습니다. 학습에 필요한 데이터의 경우 NAS에 저장해두고 요청 시 접근하여 사용합니다. GitHub에서 Test요청을 보내면, Regression Test를 진행하게 됩니다. 이런 구조는 한 Repository에 의존성을 가지게 된다는 문제를 가지고 있습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -142,6 +140,8 @@ Regression Test Pipeline을 만들기 위해서, 여러가지 시행착오를 �
 
 ### Pipeline #4: InDependent on Device
 
+-> 두개의 포스트로 나눠보기
+
 Device Dendency를 해결하기 위해서, Kubernetes를 사용하였습니다. [2] 이번 포스팅에서 Kubernetes에 대해서 자세히 다루지는 않겠지만, 사용한 목적은 내부의 컴퓨팅 자원을 추상화하기 위함입니다. 쉽게 풀어쓰면, Kubernetes에 특정 Device를 요청하는 것이 아니라, 필요한 컴퓨팅 자원에 대해서 요청만 하면, 그에 맞는 자원할당을 받기 위해서입니다. [그림10]을 보면, 여러가지 컴퓨팅 자원이 하나의 클러스터로 묶여있습니다. 이제 원하는 자원의 스펙을 적으면, 그에 맞는 자원이 할당될 것입니다.
 
 <figure class="image" style="align: center;">
@@ -152,8 +152,6 @@ Device Dendency를 해결하기 위해서, Kubernetes를 사용하였습니다. 
 </figure>
 
 Jenkins Container의 역할은 특정 Device내에서 Container로 Regression Test를 진행하는 것이 아닙니다. Jenkins Container는 미리 정의된 컴퓨팅 자원 스펙에 해당하는 Ray Cluster를 만드는 것입니다. [3] 여기서 Ray Cluster의 역할은 Regression Test를 병렬적으로 진행하기 위한 목적으로 사용되고, 작업이 끝나게 되면 Ray Cluster는 사라지게 됩니다. 참고로 [그림10]에서 구성한 Cluster와 Ray Cluster는 다른 역할을 합니다. [그림10]은 자원자체를 묶는 작업을 의미한다면, Ray Cluster는 이미 묶인 자원을 활용하는 것입니다.
-
-
 이제 Kubernetes 그리고 Ray Cluster를 활용하여, [그림11]과 같은 Pipeline을 구축하였습니다. Repository에 의존성을 제거하였으며, Docker Image도 미리 만들어둔 Image를 활용하였습니다. 또한, Device에 대한 의존성을 제거하여, 내부의 컴퓨팅 자원을 더욱 효율적으로 사용할 수 있습니다.
 
 <figure class="image" style="align: center;">
