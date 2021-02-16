@@ -2,7 +2,7 @@
 layout: post
 title: Noisy Gradient 다루기
 author: wontak ryu
-categories: [ deeplearning]
+categories: [ deep_learning]
 image: assets/images/2020-12-29-Gradient-Accumulation/noisy_gradient.jpeg
 ---
 

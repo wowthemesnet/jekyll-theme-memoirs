@@ -60,6 +60,15 @@ authors:
     web: 
     description:
 
+  jinwoo park:
+    name: jinwoo park
+    display_name: Jinwoo Park
+    avatar: 'assets/images/team/jinwoopark.png'
+    gravatar:
+    email: 'jinwoo.park@makinarocks.ai'
+    web: 'https://github.com/Curt-Park'
+    description:
+
 # Plugins
 plugins:
   - jekyll-paginate
