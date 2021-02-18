@@ -82,7 +82,7 @@ image: assets/images/2020-02-10-Performance-Test/13_.gif
 
 
 
-그럼 "언제 Regression Test를 진행해야하는가?" 라는 의문이 들 수 있습니다. [그래프1]을 근거로 내부에서는 "As Soon As Possible"(가능한 빨리)라는 결론을 내리게 되었고, 이를 위해서 Regression Test를 위한 Pipeline을 구성하였습니다.
+그럼 "언제 Regression Test를 진행해야하는가?" 라는 의문이 들 수 있습니다. [그래프1]을 근거로 내부에서는 "As Soon As Possible"(가능한 빨리)라는 결론을 내리게 되었고, 이를 위해서 쉽고 빠른 Regression Test Pipeline을 구성하였습니다.
 
 
 ## Trial and Errors
