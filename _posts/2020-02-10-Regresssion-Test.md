@@ -31,7 +31,7 @@ image: assets/images/2020-02-10-Performance-Test/13_.gif
 내부에 Unittest가 구현되어 있어서, 어느정도의 안전성이 검증된 상태였습니다. 하지만, 마키나락스는 Machine Learning Software를 다루는 조직이기 때문에 더 높은 수준의 Test System이 필요했습니다. 
 
 
-만약 Unittest는 통과하지만, 성능저하를 일으키는 Commit같은 경우에는 추적을 할 수 없다는 문제가 있습니다. 아래의 [그림2]는 실제로 마키나락스에서 겪었던 문제입니다. 여러가지 Branch와 Commit들이 혼재된 상황속에서 성능이 저하되었다는 것을 발견하였습니다. 
+현재 Test system내에서 "Unittest는 통과하지만, 성능저하를 일으키는 Commit"같은 경우에는 추적을 할 수 없다는 문제가 있습니다. 아래의 [그림2]는 실제로 마키나락스에서 겪었던 문제입니다. 여러 Branch가 Merge된 상태에서 origin/master의 성능저하를 발견하였습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
