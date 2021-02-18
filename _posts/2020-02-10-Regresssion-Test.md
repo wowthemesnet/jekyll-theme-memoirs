@@ -187,7 +187,7 @@ GitHub Action에서 Trigger Event Type에 대해서 정할 수 있습니다. 여
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img src="/assets/images/2020-02-10-Performance-Test/13.gif" alt="Gitflow Workflow" width="80%">
+  <img src="/assets/images/2020-02-10-Performance-Test/13.gif" alt="Gitflow Workflow" width="60%">
   <figcaption style="text-align: center;">[그림13] - Click for Regression Test </figcaption>
 </p>
 </figure>
