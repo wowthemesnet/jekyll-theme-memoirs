@@ -222,7 +222,7 @@ Regression Test Pipeline의 모습을 [그림13]으로 도식화해봤습니다.
 
 Regression Test Pipeline을 구성하기 위해서, 여러가지 추상화과정이 필요했습니다. Repository에 독립적으로 작동할 수 있어야 했습니다. 또한, Machine Learning Software(AI)는 많은 컴퓨팅 자원을 요구하기 때문에, 효율적인 자원사용이 필요했습니다. 이를 위해서 Kubernetes를 활용하여 컴퓨팅 자원을 가상화하였습니다. 
 
-Regression Test를 통해서 Search Space를 줄일 수 있었고, Debugging Cost 지수함수 배 만큼 줄일 수 있었습니다. 그리고 클릭 한 번으로 실험을 진행할 수 있다는 것도 굉장히 매력적인 일이였습니다.
+Regression Test를 통해서 Search Space를 줄일 수 있었고, $2^\text{ReducedSearchSpace}$ 만큼의 Debugging Cost를 줄일 수 있었습니다. 그리고 클릭 한 번으로 실험을 진행할 수 있다는 것도 굉장히 매력적인 일이였습니다.
 
 이번 포스트를 통해서 비슷한 문제를 고민하는 분들께 작은 도움이 되었으면 좋겠습니다.
 
