@@ -224,7 +224,7 @@ Regression Test를 통해서 Search Space를 줄일 수 있었고, Debugging Cos
 
 <a name="ref-2">[2]</a>  [Kubernetes[websites], (2020, Feb, 10)](https://kubernetes.io/)
 
-<a name="ref-3">[3]</a>  [Ray cluster[websites], (2020, Feb, 10)](https://docs.ray.io/en/releases-0.8.5/using-ray-on-a-cluster.html)
+<a name="ref-3">[3]</a>  [Ray cluster[websites], (2020, Feb, 10)](https://docs.ray.io/en/master/cluster/index.html)
 
 <a name="ref-4">[4]</a>  [About Self Hosted Runners[websites], (2020, Feb, 10)](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners)
 
