@@ -3,7 +3,7 @@ layout: post
 title: Regression Test, Are you sure?
 author: wontak ryu
 categories: [test]
-image: assets/images/2020-02-10-Performance-Test/13.gif
+image: assets/images/2020-02-10-Performance-Test/13_.gif
 ---
 
 ## 들어가며
