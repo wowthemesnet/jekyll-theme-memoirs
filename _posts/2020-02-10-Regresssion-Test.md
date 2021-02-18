@@ -3,7 +3,7 @@ layout: post
 title: Regression Test, Are you sure?
 author: wontak ryu
 categories: [test]
-image: 
+image: /assets/images/2020-02-10-Performance-Test/click.gif
 ---
 
 ## 들어가며
@@ -185,12 +185,19 @@ Jenkins Container의 역할은 특정 Device내에서 Container로 Regression Te
 
 GitHub Action에서 Trigger Event Type에 대해서 정할 수 있습니다. 여러 논의 끝에, Workflow Dispatch라는 Type을 선택하였습니다. 이제 마우스 클릭으로 GitHub Web에서 Regression Test를 실행할 수 있습니다. [[5]](#ref-2)
 
+<figure class="image" style="align: center;">
+<p align="center">
+  <img src="/assets/images/2020-02-10-Performance-Test/13.gif" alt="Gitflow Workflow" width="80%">
+  <figcaption style="text-align: center;">[그림13] - Click for Regression Test </figcaption>
+</p>
+</figure>
+
 Regression Test Pipeline의 모습을 [그림13]으로 도식화해봤습니다. GitHub에서 미리 설정한 Event Type에 해당하는 Event가 발생하면, MRX-Hosted-Runner에게 Regression Test를 요청합니다. MRX-Hosted-Runner는 Ray Cluster를 구성합니다. 학습 및 실험을 진행할 때는 MLflow에 실험정보를 로깅하고, 학습이 끝나면 이에 대한 정보를 GitHub에 전달합니다. 현재는 해당 PR에 Comment로 MLflow 실험링크를 달아주는 방식으로 사용중입니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img src="/assets/images/2020-02-10-Performance-Test/13.png" alt="Gitflow Workflow" width="80%">
-  <figcaption style="text-align: center;">[그림13] - Pipeline Overview </figcaption>
+  <img src="/assets/images/2020-02-10-Performance-Test/14.png" alt="Gitflow Workflow" width="80%">
+  <figcaption style="text-align: center;">[그림14] - Pipeline Overview </figcaption>
 </p>
 </figure>
 
@@ -199,8 +206,8 @@ Regression Test Pipeline의 모습을 [그림13]으로 도식화해봤습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img src="/assets/images/2020-02-10-Performance-Test/14.png" alt="Gitflow Workflow" width="80%">
-  <figcaption style="text-align: center;">[그림14] - Reduced Search Space </figcaption>
+  <img src="/assets/images/2020-02-10-Performance-Test/15.png" alt="Gitflow Workflow" width="80%">
+  <figcaption style="text-align: center;">[그림15] - Reduced Search Space </figcaption>
 </p>
 </figure>
 
