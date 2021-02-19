@@ -56,7 +56,7 @@ Pointer Network는 입력에 대한 attention mask($u^i$에 대한 softmax)를 �
 <figure class="image" style="align: center;">
 <p align="center">
   <img src="/assets/images/2021-02-11-Neural-Combinatorial-Optimization/pointer_network_3.png" alt="Experimental Results (Pointer Network)">
-  <figcaption style="text-align: center;">[그림4] Pointer Network의 실험결과 (A1~A3: Baselines) <a href="#ref-7">[7]</a></figcaption>
+  <figcaption style="text-align: center;">[테이블1] Pointer Network의 실험결과 (A1~A3: Baselines) <a href="#ref-7">[7]</a></figcaption>
 </p>
 </figure>
 
@@ -65,7 +65,7 @@ Pointer Network는 입력에 대한 attention mask($u^i$에 대한 softmax)를 �
 <figure class="image" style="align: center;">
 <p align="center">
   <img src="/assets/images/2021-02-11-Neural-Combinatorial-Optimization/pointer_network_4.png" alt="Experimental Results (Pointer Network)">
-  <figcaption style="text-align: center;">[그림5] Pointer Network의 실험결과: Convex hulls (좌), Delaunay (중앙) and TSP (우) <a href="#ref-7">[7]</a></figcaption>
+  <figcaption style="text-align: center;">[그림4] Pointer Network의 실험결과: Convex hulls (좌), Delaunay (중앙) and TSP (우) <a href="#ref-7">[7]</a></figcaption>
 </p>
 </figure>
 
@@ -123,7 +123,7 @@ Policy는 강화학습 에이전트의 행동방식을 정의합니다. 이는 �
 <p align="center">
   <img src="/assets/images/2021-02-11-Neural-Combinatorial-Optimization/experiment_config.png" alt="4 experimental configs">
 </p>
-  <figcaption style="text-align: center;">[그림6] 4 가지 실험 설정 <a href="#ref-1">[1]</a></figcaption>
+  <figcaption style="text-align: center;">[테이블2] 4 가지 실험 설정 <a href="#ref-1">[1]</a></figcaption>
 </figure>
 
 
@@ -140,14 +140,15 @@ Policy는 강화학습 에이전트의 행동방식을 정의합니다. 이는 �
 <p align="center">
   <img src="/assets/images/2021-02-11-Neural-Combinatorial-Optimization/nco_result.png" alt="TSP50 / TSP100 experimental results">
 </p>
-  <figcaption style="text-align: center;">[그림7] 위: TSP50 / 아래: TSP100 (각 그림 아래 숫자는 총 여행거리를 의미) <a href="#ref-1">[1]</a></figcaption>
+  <figcaption style="text-align: center;">[그림5] 위: TSP50 / 아래: TSP100 (각 그림 아래 숫자는 총 여행거리를 의미) <a href="#ref-1">[1]</a></figcaption>
 </figure>
 
+## Related Posts
 
-## Coming Up Next..
+다음 포스팅에서 강화학습을 사용한 Neural Combinatorial Optimization 방법을 실제 산업 문제에 적용한 사례에 대해 알아보도록 하겠습니다.
 
-다음 포스팅에서는 강화학습을 사용한 Neural Combinatorial Optimization 방법을 실제 산업 문제(Chip Placement Problem)에 적용한 사례에 대해 알아보도록 하겠습니다.
-
+- [Chip Placement on FPGA 프로젝트를 소개합니다! (written by 우경민)](/chip_placement_on_fpga_project)
+- [Chip Placement with Deep Reinforcement Learning (written by 우경민)](/chip_placement_with_reinforcement_learning)
 
 ## References
 

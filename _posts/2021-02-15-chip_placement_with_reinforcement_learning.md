@@ -307,6 +307,17 @@ Google의 Chip Placement 논문은 다음 네 가지 면에 있어서 큰 의미
 
 특히 전문가가 수주에 걸쳐 완성한 배치 결과보다 논문을 통해 제안하고 있는 강화학습 기반 알고리즘이 6시간 만에 만들어낸 배치 결과가 더 좋았다는 점을 강조하며 마무리하고 있습니다.
 
+## Related Posts
+
+MakinaRocks COP 팀에서는 Google의 Chip Placement 논문의 아이디어를 FPGA에 적용하는 프로젝트를 진행했습니다. 상용 EDA Tool과 비교하여 성능을 개선한 사례가 궁금하시다면 아래 링크에서 확인하실 수 있습니다.
+
+- [Chip Placement on FPGA 프로젝트를 소개합니다! (written by 우경민)](/chip_placement_on_fpga_project)
+
+Chip Placement with Deep Reinforcement Learning 연구의 뿌리라고도 할 수 있는 Neural Combinatorial Optimization with Reinforcement Learning에 대해서도 별도 포스팅으로 정리해봤습니다.
+
+- [Neural Combinatorial Optimization with Reinforcement Learning (written by 박진우)](/Neural-Combinatorial-Optimization)
+
+
 ## References
 
 <a name="ref-1">[1]</a>  [Azalia Mirhoseini, Anna Goldie, Mustafa Yazgan, Joe Jiang, Ebrahim Songhori, Shen Wang, Young-Joon Lee, Eric Johnson, Omkar Pathak, Sungmin Bae, Azade Nazi, Jiwoo Pak, Andy Tong, Kavya Srinivasa, William Hang, Emre Tuncer, Anand Babu, Quoc V. Le, James Laudon, Richard Ho, Roger Carpenter, Jeff Dean, 2020, Chip Placement with Deep Reinforcement Learning.](https://arxiv.org/abs/2004.10746)
