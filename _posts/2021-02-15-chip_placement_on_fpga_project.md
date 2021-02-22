@@ -135,7 +135,7 @@ Google의 Chip Placement 논문에서 제시하는 Observation의 유형으로�
 - Netlist Metadata: 사용하는 영역의 크기, Grid의 크기, Congestion Map, 총 Macro/Wire의 갯수
 - Mask: 타입별 마스킹 정보
 
-FPGA이므로 사용하는 영역의 크기는 TILE의 갯수를 활용했습니다. Congestion Map은 Google의 Chip Placement 논문에 나오지 않는 요소로, 쉽게 말해 각 Grid Cell 단위로 배치되어 있는 Macro들의 총 Port 갯수에 대한 정보를 가지고 있습니다. 포트 갯수가 많을수록 해당 영역과 연결되어 있는 Wire의 갯수가 많을 것이라고 추정할 수 있는 만큼 Routing Congestion을 추정하는 데에 도움이 될 것이라 판단하여 추가하게 되었습니다. Macro Feature의 포트 갯수 정보 또한 논문에서는 명시하고 있지 않으나, 동일한 이유로 추가하게 되었습니다.
+FPGA이므로 사용하는 영역의 크기는 TILE의 갯수를 활용했습니다. Congestion Map은 Google의 Chip Placement 논문에 나오지 않는 요소로, 쉽게 말해 각 Grid Cell 단위로 배치되어 있는 Macro들의 총 포트 갯수에 대한 정보를 가지고 있습니다. 포트 갯수가 많을수록 해당 영역과 연결되어 있는 Wire의 갯수가 많을 것이라고 추정할 수 있는 만큼 Routing Congestion을 추정하는 데에 도움이 될 것이라 판단하여 추가하게 되었습니다. Macro Feature의 포트 갯수 정보 또한 논문에서는 명시하고 있지 않으나, 동일한 이유로 추가하게 되었습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -183,7 +183,12 @@ $$
 
 업데이트 중단의 기준이 되는 Threshold의 크기를 결정하는 것 또한 중요한 문제였습니다. 이때 Threshold를 너무 높게 잡으면 충분히 수렴되지 않은 것이므로 Embedding의 정확성이 떨어지게 되는 반면, 너무 낮게 잡으면 연산량이 과도하게 많아지게 됩니다. 특히 PyTorch에서는 반복적으로 Network를 forwarding하면 계산 그래프가 누적되어 Memory를 과도하게 차지하도록 되어 있어, Threshold를 낮게 설정하고 실험하는 경우에는 Out of Memory Issue도 빈번하게 발생했습니다.
 
-이러한 문제에 대처하기 위해 Max iteration의 크기를 hyper parameter로 추가하여 일정 횟수 이상 반복적으로 Embedding이 업데이트되지는 않도록 했습니다. 참고로 최종 실험은 Max iteration은 10으로, Threshold는 1-e7로 설정하고 진행했습니다.
+이러한 문제에 대처하기 위해 Max iteration의 크기를 hyper parameter로 추가하여 일정 횟수 이상 반복적으로 Embedding이 업데이트 되지는 않도록 했습니다. 결과적으로 다음 두 가지를 반복 업데이트 종료 조건으로 설정했습니다.
+
+- Embedding의 변화량이 Threshold 보다 낮아지는 경우
+- Max Iteration 만큼 업데이트가 완료된 경우
+
+참고로 최종 실험은 Max iteration은 10으로, Threshold는 1-e7로 설정하고 진행했습니다.
 
 ### 강화학습 알고리즘
 
@@ -205,9 +210,11 @@ $$
 - DP(Dynamic Power)
 - RU(Routing Utilization Ratio)
 
-WNS와 WHS의 Time-Slack 이라는 것은 Clock Frequency를 지키는 데에 얼마나 많은 여유 시간이 있는지 나타내는 것입니다. 따라서 이것이 크면 클수록 보다 여유롭게 Clock Frequency를 유지할 수 있으며, 동시에 더 높은 Clock Frequency 또한 가능하다는 것을 의미합니다. 반대로 이것이 음수가 되면 현재 배치 결과로는 주어진 Clock Frequency 대로 구현하는 것이 불가능하다는 뜻입니다.
+**WNS와 WHS**에서 Time-Slack 이라는 것은 Clock Frequency를 지키는 데에 얼마나 많은 여유 시간이 있는지 나타내는 것입니다. 따라서 이것이 크면 클수록 보다 여유롭게 Clock Frequency를 유지할 수 있으며, 동시에 더 높은 Clock Frequency 또한 가능하다는 것을 의미합니다. 반대로 이것이 음수가 되면 현재 배치 결과로는 주어진 Clock Frequency 대로 구현하는 것이 불가능하다는 뜻입니다.
 
-Dynamic Power는 전체 전력 소비량 중 배치된 결과로 인해 사용되는 전력량을 의미합니다. 참고로 FPGA Board 자체가 반도체이기 때문에 배치가 전혀 이뤄지지 않은 상태에서도 전력을 일정량 소모하게 되는데, 이는 Static Power라고 합니다. 배치를 평가하는 것이 목표이므로 Static Power는 계산에 반영하지 않았습니다. 마지막으로 Routing Utilization은 전체 사용 가능한 Wire 중에서 얼마나 많은 Wire를 사용하는지를 나타내는 수치입니다. Horizontal / Verㄴtical 방향으로 나누어 구해지며, 두 가지를 합하여 사용했습니다.
+**Dynamic Power**는 전체 전력 소비량 중 배치된 결과로 인해 사용되는 전력량을 의미합니다. 참고로 FPGA Board 자체가 반도체이기 때문에 배치가 전혀 이뤄지지 않은 상태에서도 전력을 일정량 소모하게 되는데, 이는 Static Power라고 합니다. 배치를 평가하는 것이 목표이므로 Static Power는 계산에 반영하지 않았습니다. 
+
+마지막으로 **Routing Utilization**은 전체 사용 가능한 Wire 중에서 얼마나 많은 Wire를 사용하는지를 나타내는 수치입니다. Horizontal / Vertical 방향으로 나누어 구해지며, 두 가지를 합하여 사용했습니다.
 
 정리하자면 WNS, WHS는 크면 클수록 좋은 값, Routing Utilization과 Dynamic Power는 작으면 작을수록 좋은 값 입니다. PPA는 이러한 값들을 모두 종합적으로 반영한 것인 만큼 COP 팀에서는 Overall Score를 계산하여 각 배치들을 비교했습니다. 이때 각각의 값들의 Magnitude가 모두 다르므로 Routing Utilization과 Dynamic Power에 대해서는 100을 곱해주었습니다. 정확한 계산식은 아래와 같습니다.
 
@@ -215,7 +222,7 @@ Dynamic Power는 전체 전력 소비량 중 배치된 결과로 인해 사용�
 
 ## 그래서 얼마나 잘했나?
 
-COP 팀에서 개발한 강화학습 알고리즘의 성능을 평가하기 위해서는 Vivado 내에서 강화학습 알고리즘이 결정한 대로 배치하고, Routing을 수행한 후 FPGA에서 사용되는 평가 척도들을 계산해야 합니다. COP 팀에서는 강화학습 알고리즘의 배치 결과를 아래와 같은 txt 파일로 저장하고 이를 Vivado에 입력 제약 조건으로 전달하여 이러한 과정이 이뤄질 수 있도록 했습니다.
+개발한 강화학습 알고리즘의 성능을 평가하기 위해서는 Vivado 내에서 강화학습 알고리즘이 결정한 대로 소자들의 배치를 진행하고, Routing을 수행한 후 앞서 살펴본 FPGA에서 사용되는 평가 기준들을 계산해야 합니다. COP 팀에서는 강화학습 알고리즘의 배치 결과를 아래와 같은 txt 파일로 저장하고 이를 Vivado에 입력 제약 조건으로 전달하여 이러한 과정이 이뤄질 수 있도록 했습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -301,7 +308,7 @@ Chip Placement with Deep Reinforcement Learning 연구의 뿌리라고도 할 �
 
 <a name="ref-7">[7]</a>  [K. Shahookar & P. Mazumder, 1991, VLSI Cell Placement Techniques, ACM Computing Surveys.](http://users.eecs.northwestern.edu/~haizhou/357/p143-shahookar.pdf)
 
-<a name="ref-8">[8]</a>  Clive Maxfield, 2004, The design warrior's guide to FPGAs, Elsevier
+<a name="ref-8">[8]</a>  Clive Maxfield, 2004, The design warrior's guide to FPGAs, Elsevier.
 
 <a name="ref-9">[9]</a>  [위키 백과, 2020, 팹리스 반도체 기업.](https://ko.wikipedia.org/wiki/%ED%8C%B9%EB%A6%AC%EC%8A%A4_%EB%B0%98%EB%8F%84%EC%B2%B4_%EA%B8%B0%EC%97%85)
 

@@ -47,7 +47,7 @@ P&R 공정은 논리적으로 정의되어 있는 반도체 설계 도면을 실
 </p>
 </figure>
 
-위의 그림에서 빨간 선은 Macro2와 Standard Cell 5를 연결하는 가장 짧은 코스를 나타냅니다. 그런데 빨간 선이 통과하는 구간에 이미 너무 많은 Wire가 배치되어 있어 더 이상 Routing Resource가 존재하지 않는 상황입니다. 이러한 경우에는 녹색 선과 같이 우회하여 Wire를 배치하게 되고, 전체적인 Wire Length가 길어집니다.
+위의 그림에서 빨간 선은 Macro2와 Standard Cell 5를 연결하는 가장 짧은 경로를 나타냅니다. 그런데 빨간 선이 통과하는 구간에 이미 너무 많은 Wire가 배치되어 있어 더 이상 Routing Resource가 존재하지 않는 상황입니다. 이러한 경우에는 녹색 선과 같이 우회하여 Wire를 배치하게 되고, 전체적인 Wire Length가 길어집니다.
 
 ### 기존에는 어떻게 풀었을까?
 
@@ -66,11 +66,11 @@ P&R 공정은 논리적으로 정의되어 있는 반도체 설계 도면을 실
 force-directed placement, rein-cut placement, placement by numerical optimization,
 and evolution-based placement. (VLSI Cell Placement Techniques)
 
-이와 관련하여 산업의 이야기를 덧붙이면 P&R 뿐만 아니라 반도체의 설계 과정에서 많은 부분을 자동화해주는 툴을 EDA(Electronic design automation)라고 하고, 많은 반도체 설계 전문 회사들이 Cadence, Synopsys와 같은 글로벌 기업의 EDA Tool을 사용하여 설계 과정 상의  여러 복잡한 문제들을 해결하고 있습니다. 하지만 자동화 툴이라고 해서 모든 것이 100% 자동적으로 이뤄지는 것은 아니며, EDA Tool을 누가 어떻게 사용하느냐에 따라 결과물의 수준이 확연히 달라집니다. P&R 문제만 놓고 보더라도 크기가 상대적으로 크고, 내부의 구조가 미리 결정되어 있는 Hard Macro의 경우에는 전문가가 직접 배치하는 것이 일반적입니다.
+이와 관련하여 산업의 이야기를 덧붙이면 P&R 뿐만 아니라 반도체의 설계 과정에서 많은 부분을 자동화해주는 툴을 EDA(Electronic Design Automation)라고 하고, 많은 반도체 설계 전문 회사들이 Cadence, Synopsys와 같은 글로벌 기업의 EDA Tool을 사용하여 설계 과정 상의  여러 복잡한 문제들을 해결하고 있습니다. 하지만 자동화 툴이라고 해서 모든 것이 100% 자동적으로 이뤄지는 것은 아니며, EDA Tool을 누가 어떻게 사용하느냐에 따라 결과물의 수준이 확연히 달라집니다. P&R 문제만 놓고 보더라도 크기가 상대적으로 크고, 내부의 구조가 미리 결정되어 있는 Hard Macro의 경우에는 전문가가 직접 배치하는 것이 일반적입니다.
 
 ### 배치 문제에 강화학습 적용하기
 
- Google의 Chip Placement 논문에서 제시하는 방법은 전문가가 직접 배치하고 있는 Hard Macro들만 강화학습 에이전트로 배치하고 있습니다. 즉 전체 Chip Placement 문제를 강화학습 알고리즘으로 해결하는 것이 아니며, 정확하게 말하면 수백 수천만 개의 소자들 중에서 몇백 개의 Macro만 강화학습으로 배치합니다(Few hundred macros and millions of standard cells).
+Google의 Chip Placement 논문에서 제시하는 방법은 전문가가 직접 배치하고 있는 Hard Macro들만 강화학습 에이전트로 배치하고 있습니다. 즉 전체 Chip Placement 문제를 강화학습 알고리즘으로 해결하는 것이 아니며, 정확하게 말하면 수백 수천만 개의 소자들 중에서 몇백 개의 Macro만 강화학습으로 배치합니다(Few hundred macros and millions of standard cells).
 
 에이전트가 배치하지 않는 다른 모든 소자들에 대해서는 전통적인 Chip Placement 방법론 중 하나인 Force-Directed Method를 사용합니다. 이때 전통적인 알고리즘을 사용한다 하더라도 배치 대상의 개수가 너무 많기 때문에 Standard Cell은 연결성이 높은 소자들끼리 Clustering을 진행한 후, Cluster 단위로 배치를 수행합니다. 이를 통해 배치 대상의 개수를 수백만 개에서 수천 개 수준으로 축소하여 복잡성을 낮추고 있습니다.
 
@@ -114,13 +114,15 @@ $$
 J(\theta, G) = {1 \over K} \Sigma_{g \backsim G} E_{g,p \backsim \pi_\theta} [R_{p,g}]
 $$
 
-Chip Placement 문제를 해결하는 에이전트를 만들기 위해서는 이상적으로 생각하는 배치에 대해서는 높은 Reward를, 그렇지 않은 배치에 대해서는 낮은 Reward를 주어야 합니다. 이를 가장 정확하게 반영하는 메트릭은 앞서 소개한 PPA의 측정 값인 WNS, Dynamic Power 등의 값을 그대로 넣어주는 것입니다. 참고로 WNS는 Worst Negative Slack의 약자로, 쉽게 말해 현재 배치가 특정 Clock Frequency를 유지할 수 있는지를 나타내는 척도라고 할 수 있습니다. 이 값이 음수이면 사용이 불가능한 배치임을 뜻합니다. Dynamic Power는 FPGA 보드의 구동에 소요되는 전력을 제외하고 특정 배치를 유지하는 데에 소요되는 전력을 의미합니다.
+Chip Placement 문제를 해결하는 에이전트를 만들기 위해서는 이상적으로 생각하는 배치에 대해서는 높은 Reward를, 그렇지 않은 배치에 대해서는 낮은 Reward를 주어야 합니다. 이를 가장 정확하게 반영하는 메트릭은 앞서 소개한 PPA의 측정 값인 WNS, Dynamic Power 등의 값을 그대로 넣어주는 것입니다. 
+
+WNS는 Worst Negative Setup-time Slack의 약자로, 쉽게 말해 현재 배치가 특정 Clock Frequency를 유지할 수 있는지를 나타내는 척도라고 할 수 있습니다. 이 값이 음수이면 사용이 불가능한 배치임을 뜻합니다. Dynamic Power는 FPGA 보드의 구동에 소요되는 전력을 제외하고 특정 배치를 유지하는 데에 소요되는 전력을 의미합니다.
 
 하지만 여기에 한 가지 문제가 있다면 어떤 배치에 대해 정확한 WNS와 Dynamic Power를 계산하기 위해서는 Placement 이후 작업인 Routing이 완료되어야 한다는 점입니다. 이렇게 되면 한 번의 Reward 계산에 매우 많은 시간이 요구됩니다. 학습을 위해 많은 Transition $$(s, a, r, s')$$을 요구하는 강화학습의 특성상 Reward 계산에 너무 많은 시간이 들어가게 되면 전체적인 학습 속도가 크게 느려질 수밖에 없습니다.
 
 #### Wire Length & Routing Congestion
 
-이러한 문제를 해결하기 위해 논문에서는 속도가 빠르면서도 전력 소모 및 성능을 간접적으로 파악할 수 있는 값들인 Wire Length와 Routing Congestion을 Reward 계산에 사용합니다. Wire Length가 짧을수록 Clock Frequency(Performance)와 Power의 측면에서 이점이 있고, 사용하는 영역의 크기(Area)도 더 적을 것이라고 추정할 수 있습니다. 이러한 점에서 Wire Length의 길이에 따라 패널티를 부여하게 됩니다.
+이러한 문제를 해결하기 위해 논문에서는 연산 속도가 빠르면서도 전력 소모 및 성능을 간접적으로 파악할 수 있는 값들인 Wire Length와 Routing Congestion을 Reward 계산에 사용합니다. Wire는 전기 신호가 통과해야 하는 통로이므로 그 길이가 짧을수록 더욱 빠르고 적은 전력으로 신호가 전달됩니다. 이러한 점에서 Wire Length가 짧으면 Clock Frequency(Performance)와 Power의 측면에서 이점이 있고, 따라서 Wire Length의 길이에 따라 패널티를 부여하고 있습니다.
 
 그런데 여기서 말하는 Wire Legnth란 단순히 소자 간 물리적인 거리만을 고려하여 계산된 값입니다. 앞서 확인한 대로 실제 Chip Canvas에서는 특정 영역에 Wire가 밀집하면 몇몇 Wire는 우회하여 배치해야 하고, 정확한 Reward 계산을 위해서는 이러한 특성이 반영되어야 합니다. 두 번째 항에서 영역별 Wire의 밀집도라고 할 수 있는 Routing Congestion를 계산하여 패널티를 부여하는 것은 이를 반영한 것입니다.
 
@@ -129,7 +131,7 @@ R_{p,q} = -\text{Wirelength}(p, g) - \lambda \text{Congestion}(p, g) \\
 \text{S.t. } \text{density}(p,g) \leq \text{max}_\text{density}
 $$
 
-위와 같이 Reward를 계산하는 것은 정확도를 다소 희생하되, 연산에 필요한 비용과 시간을 줄인 것으로 볼 수 있습니다. 참고로 Reward는 모든 Macro와 Standard Cell이 배치된 이후에 한 번만 계산합니다. 그 이외의 경우에는 Reward가 항상 0으로 저장됩니다. 논문에서는 위의 식과 관련하여 $$\lambda = 0.01$$, $$\max_{\text{density}} = 0.6$$으로 하이퍼 파라미터를 설정하여 실험을 진행했다고 합니다.
+위와 같이 Reward를 계산하는 것은 정확도를 다소 희생하되, 연산에 필요한 비용과 시간을 줄인 것으로 볼 수 있습니다. 참고로 Reward는 모든 Macro와 Standard Cell이 배치된 이후에 한 번만 계산합니다. 그 이외의 경우에는 Reward가 항상 0으로 저장됩니다. 논문에서는 위의 식과 관련하여 $$\lambda = 0.01$$, $$\max_{\text{density}} = 0.6$$으로 hyper parameter를 설정하여 실험을 진행했다고 합니다.
 
 #### (1) Wire Length
 
@@ -173,7 +175,7 @@ Chip Canvas는 영역 별로 일정한 Routing Resoure를 가지고 있으며, �
 - Netlist Metadata
 - Mask
 
-각각에 대해 하나씩 살펴보면, Macro Feature는 배치 대상되는 Macro의 특성 정보들을 말합니다. 여기서의 특성 정보에는 Macro의 타입, 크기, 위치 정보등이 포함되어 있습니다. 두 번째 정보인 Netlist Graph는 소자들의 연결관계를 표현하는 Adjacency Matrix입니다. 세 번째 Current Macro id는 현재 배치하고자 하는 Macro가 무엇인지 알려주는 정보입니다. Netlist Metadata는 말 그대로 Netlist의 메타 정보들로서, Netlist를 구성하는 Macro의 개수, Wire의 개수, Standard Cell Cluster의 개수, 배치 Grid의 크기 등이 들어갑니다. 마지막으로 Mask는 배치가 가능한 영역을 알려주는 정보로, Action을 Masking 하여 배치 배치 불가능한 영역에 대해서는 배치가 이뤄지지 않도록 합니다.
+각각에 대해 하나씩 살펴보면, Macro Feature는 배치 대상되는 Macro의 특성 정보들을 말합니다. 여기서의 특성 정보에는 Macro의 타입, 크기, 위치 정보등이 포함되어 있습니다. 두 번째 정보인 Netlist Graph는 소자들의 연결관계를 표현하는 Adjacency Matrix입니다. 세 번째 Current Macro id는 현재 배치하고자 하는 Macro가 무엇인지 알려주는 정보입니다. 네 번째 Netlist Metadata는 말 그대로 Netlist의 메타 정보들로서, Netlist를 구성하는 Macro의 개수, Wire의 개수, Standard Cell Cluster의 개수, 배치 Grid의 크기 등이 들어갑니다. 마지막으로 Mask는 배치가 가능한 영역을 알려주는 정보로, Action을 Masking 하여 배치 배치 불가능한 영역에 대해서는 배치가 이뤄지지 않도록 합니다.
 
 ### Netlist가 Graph니 GNN을 쓰자
 
@@ -194,7 +196,7 @@ $$
 }
 $$
 
-위의 수식에서 $$v_i$$는 $$i$$ 번째 Macro에 대한 embedding을, $$e_{i,j}$$는 $$i$$와 $$j$$ 번쩨 Macro를 잇는 Wire에 대한 Embedding을 의미합니다. 두 수식을 모든 Macro와 Wire에 대해 수렴할 때까지 반복적으로 적용하여 최종적인 Embedding으로 $$v$$와 $$e$$를 사용하게 됩니다. Node Embedding과 Edge Embedding을 함께 얻을 수 있다는 점이 위 구조의 주요 특징이라고 할 수 있습니다.
+위의 수식에서 $$v_i$$는 $$i$$ 번째 Macro에 대한 Embedding을, $$e_{i,j}$$는 $$i$$와 $$j$$ 번쩨 Macro를 잇는 Wire에 대한 Embedding을 의미합니다. 두 수식을 모든 Macro와 Wire에 대해 수렴할 때까지 반복적으로 적용하여 최종적인 Embedding으로 $$v$$와 $$e$$를 사용하게 됩니다. Node Embedding과 Edge Embedding을 함께 얻을 수 있다는 점이 위 구조의 주요 특징이라고 할 수 있습니다.
 
 위 Model Architecture 이미지를 기준으로 보면 $$v$$가 붉은 색의 Macro Embedding이고, $$e$$가 푸른 색의 Edge Embeddings 입니다.
 Node Embedding에 대해서는 Indexing을 하고 있는데 각 Node의 특성을 가지고 있는 정보이므로 현재 배치할 Node의 정보만을 추출하는 것으로 이해할 수 있습니다. Edge Embedding에 대해서는 Reduce Mean을 하는데 이를 통해 전체 Graph의 특성을 담고 있는 Vector를 만들 수 있습니다.
@@ -215,7 +217,7 @@ Graph Embedding과 Current Macro Embedding은 앞서 확인한 GNN 구조의 두
 
 ### 업데이트 알고리즘은 PPO
 
-Policy의 역할은 현재 주어진 Macro를 Chip Canvas 상의 어떤 지점에 배치할 것인지 결정하는 것입니다. 이때 Grid 형태의 확률 함수를 효과적으로 표현하기 위해 Deconvolution layer를 Policy Network에 사용한 것으로 보입니다.
+Policy의 역할은 현재 주어진 Macro를 Chip Canvas 상의 어떤 지점에 배치할 것인지 결정하는 것입니다. 이때 Grid 형태의 확률 함수를 효과적으로 표현하기 위해 Deconvolution Layer를 Policy Network에 사용한 것으로 보입니다.
 
 Policy Network를 직접 업데이트해야 하기 때문에 Policy Gradient 계열의 업데이트 알고리즘을 사용해야 하는데, 상대적으로 적은 연산량과 높은 성능 그리고 분산 학습에 강점을 보이는 PPO 알고리즘[[3](#ref-3)]을 사용하고 있습니다[[11](#ref-11)].
 
@@ -224,7 +226,7 @@ Policy Network를 직접 업데이트해야 하기 때문에 Policy Gradient 계
 <figure class="image" style="align: center;">
 <p align="center">
   <img src="/assets/images/2021-02-15-chip_placement_with_reinforcement_learning/chip_placement_pre_training.png" alt="normal gradient" width="90%">
-  <figcaption style="text-align: center;">[그림7] - Pre-training</figcaption>
+  <figcaption style="text-align: center;">[그림7] - Pre-Training</figcaption>
 </p>
 </figure>
 
@@ -242,7 +244,7 @@ Policy Network를 직접 업데이트해야 하기 때문에 Policy Gradient 계
 <figure class="image" style="align: center;">
 <p align="center">
   <img src="/assets/images/2021-02-15-chip_placement_with_reinforcement_learning/chip_placement_test_table.png" alt="normal gradient" width="90%">
-  <figcaption style="text-align: center;">[테이블1] - Pre-training Test Settings</figcaption>
+  <figcaption style="text-align: center;">[테이블1] - Pre-Training Test Settings</figcaption>
 </p>
 </figure>
 
@@ -266,7 +268,7 @@ Policy Network를 직접 업데이트해야 하기 때문에 Policy Gradient 계
 </p>
 </figure>
 
-위의 그래프는 초록선으로 표현되는 Pre-Trained 방법과 파란선의 From-Scrach 방법 간의 수렴 속도를 비교하고 있으며, 이를 통해  Pre-Training을 수행했을 때 수렴 속도가 월등히 빠르다는 것을 확인할 수 있습니다. 이러한 점에서 Pre-Training과 Fine Tuning을 통해 최대한 많은 종류의 배치 결과를 학습한 에이전트가 배치 성능이 가장 좋으며, 수렴 속도 또한 빠르다고 할 수 있습니다.
+위의 그래프는 초록선으로 표현되는 Pre-Training 방법과 파란선의 From-Scrach 방법 간의 수렴 속도를 비교하고 있으며, 이를 통해  Pre-Training을 수행했을 때 수렴 속도가 월등히 빠르다는 것을 확인할 수 있습니다. 이러한 점에서 Pre-Training과 Fine Tuning을 통해 최대한 많은 종류의 배치 결과를 학습한 에이전트가 배치 성능이 가장 좋으며, 수렴 속도 또한 빠르다고 할 수 있습니다.
 
 ### Transfer Learning에 사용하는 데이터는 다다익선
 
@@ -279,7 +281,7 @@ Pre-Training의 목표는 State Encoder가 다양한 Observation을 경험하여
 </p>
 </figure>
 
-위의 도표를 되면 거의 모든 경우에서 Train Set의 크기가 클수록 성능이 좋아지는 경향을 보이며 특히 Fine-Tuning을 적게 수행했을 때 그 차이가 더욱 도드라짐을 알 수 있습니다.
+위의 도표를 되면 거의 모든 경우에서 Train Set의 크기가 클수록 성능이 좋아지는 경향을 보이며 특히 Fine Tuning을 적게 수행했을 때 그 차이가 더욱 도드라짐을 알 수 있습니다.
 
 ### 사람보다 더 낫다
 
@@ -326,15 +328,15 @@ Chip Placement with Deep Reinforcement Learning 연구의 뿌리라고도 할 �
 
 <a name="ref-3">[3]</a>  [John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov, 2017, Proximal Policy Optimization Algorithms.](https://arxiv.org/pdf/1707.06347.pdf)
 
-<a name="ref-4">[4]</a>  [K. Shahookar & P, Mazumder, 1991, VLSI Cell Placement Techniques, ACM Computing Surveys](http://users.eecs.northwestern.edu/~haizhou/357/p143-shahookar.pdf)
+<a name="ref-4">[4]</a>  [K. Shahookar & P, Mazumder, 1991, VLSI Cell Placement Techniques, ACM Computing Surveys.](http://users.eecs.northwestern.edu/~haizhou/357/p143-shahookar.pdf)
 
-<a name="ref-5">[5]</a> Richard S. Sutton, Andrew G. Barto, 2018, Reinforcement Learning: An Introduction 2nd edition Chapter 3 Finite Markov Decision Process
+<a name="ref-5">[5]</a> Richard S. Sutton, Andrew G. Barto, 2018, Reinforcement Learning: An Introduction 2nd edition Chapter 3 Finite Markov Decision Process.
 
-<a name="ref-6">[6]</a>  [Chung-Kuan Cheng, Ilgweon Kang, Lutong Wang, 2019, RePlAce: Advancing Solution Quality and Routability Validation in Global Placement, IEEE](<https://vlsicad.ucsd.edu/Publications/Journals/j126.pdf>)
+<a name="ref-6">[6]</a>  [Chung-Kuan Cheng, Ilgweon Kang, Lutong Wang, 2019, RePlAce: Advancing Solution Quality and Routability Validation in Global Placement, IEEE.](<https://vlsicad.ucsd.edu/Publications/Journals/j126.pdf>)
 
-<a name="ref-7">[7]</a>  [Thomas N. Kipf, Max Wellin, 2017, Semi-Supervised Classification with Graph Convolutional Network, ICLR](<https://vlsicad.ucsd.edu/Publications/Journals/j126.pdf>)
+<a name="ref-7">[7]</a>  [Thomas N. Kipf, Max Wellin, 2017, Semi-Supervised Classification with Graph Convolutional Network, ICLR.](<https://vlsicad.ucsd.edu/Publications/Journals/j126.pdf>)
 
-<a name="ref-8">[8]</a>  [삼성전자, 2017, [반도체 8대 공정] 1탄, ‘웨이퍼’란 무엇일까요?, 삼성 반도체 이야기](<https://www.samsungsemiconstory.com/1458>)
+<a name="ref-8">[8]</a>  [삼성전자, 2017, [반도체 8대 공정] 1탄, ‘웨이퍼’란 무엇일까요?, 삼성 반도체 이야기.](<https://www.samsungsemiconstory.com/1458>)
 
 <a name="ref-9">[9]</a>  [Yisong Yue, 2020, Lecture by Azalia Mirhoseini & Anna Goldie (CS 159 Spring 2020), Complexity of Chip Placement Problem.](<https://youtu.be/lBzh9WY5hpU?t=1772>)
 
