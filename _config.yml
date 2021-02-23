@@ -6,7 +6,7 @@ logo: 'assets/images/makinarocks_logo.png'
 favicon: 'assets/images/mrx_logo.png'
 url: https://makinarocks.github.io
 baseurl: ""
-google_analytics: 'UA-xxxxxxxx-1'
+google_analytics: 'G-WFQNDYKKVX'
 disqus: 'demowebsite'
 mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
 include: ["_pages"]
