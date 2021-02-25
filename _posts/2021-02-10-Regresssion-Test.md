@@ -8,10 +8,8 @@ image: assets/images/2020-02-10-Performance-Test/13_.gif
 
 ## 들어가며
 
-안녕하세요. 마키나락스의 류원탁입니다.
-
 마키나락스는 AI Project를 넘어 AI Product로 나아가고 있습니다. Product로 나아가는 여정 속에서 재미있는 엔지니어링 이슈들이 생겼습니다.
-특히, 마키나락스가 제공하는 Machine Learning Software의 성능 대해서 신속하고 정확한 검증에 대한 필요가 있었습니다. 마키나락스에서는 Unittest는 기본적으로 적용하고 있지만, Unittest만으로는 성능을 보장 할 수 없습니다.
+특히, 마키나락스가 제공하는 Machine Learning Software의 성능 대해서 신속하고 정확한 검증에 대한 필요가 있었습니다. 마키나락스에서는 Unit Test는 기본적으로 적용하고 있지만, Unit Test만으로는 성능을 보장 할 수 없습니다.
 
 이번 포스트에서는 Machine Learning Software에 대한 성능검증을 어떤 방식으로 진행하고 있는지 공유드리도록 하겠습니다.
 
@@ -28,10 +26,10 @@ image: assets/images/2020-02-10-Performance-Test/13_.gif
 </p>
 </figure>
 
-내부에 Unittest가 구현되어 있어서, 어느정도의 안전성이 검증된 상태였습니다. 하지만, 마키나락스는 Machine Learning Software를 다루는 조직이기 때문에 더 높은 수준의 Test System이 필요했습니다. 
+내부에 Unit Test가 구현되어 있어서, 어느정도의 안전성이 검증된 상태였습니다. 하지만, 마키나락스는 Machine Learning Software를 다루는 조직이기 때문에 더 높은 수준의 Test System이 필요했습니다. 
 
 
-현재 Test system내에서 "Unittest는 통과하지만, 성능저하를 일으키는 Commit"같은 경우에는 추적을 할 수 없다는 문제가 있습니다. 아래의 [그림2]는 실제로 마키나락스에서 겪었던 문제입니다. 여러 Branch가 Merge된 상태에서 origin/master의 성능저하를 발견하였습니다.
+현재 Test system내에서 "Unit Test는 통과하지만, 성능저하를 일으키는 Commit"같은 경우에는 추적을 할 수 없다는 문제가 있습니다. 아래의 [그림2]는 실제로 마키나락스에서 겪었던 문제입니다. 여러 Branch가 Merge된 상태에서 origin/master의 성능저하를 발견하였습니다.
 
 <figure class="image" style="align: center;">
 <p align="center">
@@ -59,7 +57,7 @@ image: assets/images/2020-02-10-Performance-Test/13_.gif
 </figure>
 
 
-결국, 수많은 Debugging 끝에 원인을 찾을 수 있었습니다. 그리고 원인들은 생각보다 사소한 변화였습니다. 일반적으로 생각해봤을 때 큰 문제를 야기할 것이라고 생각하기 어려운 부분이였습니다. 아마도 그렇기 때문에, 뒤늦게 발견이 되었을 것이라고 생각합니다. 더욱이 이런 Commit들이 모두 Unittest를 통과했기 때문에, 개발자 입장에서 무엇이 원인인지 파악하기 힘듭니다.
+결국, 수많은 Debugging 끝에 원인을 찾을 수 있었습니다. 그리고 원인들은 생각보다 사소한 변화였습니다. 일반적으로 생각해봤을 때 큰 문제를 야기할 것이라고 생각하기 어려운 부분이였습니다. 아마도 그렇기 때문에, 뒤늦게 발견이 되었을 것이라고 생각합니다. 더욱이 이런 Commit들이 모두 Unit Test를 통과했기 때문에, 개발자 입장에서 무엇이 원인인지 파악하기 힘듭니다.
 
 이런 경험을 한 후에, **Are you Sure?** (이 코드 문제가 없을까요?)라는 질문에 답하기 위해서는 사실상 작은 변화더라도 **Regression Test**를 진행해야 하는 것을 깨달았습니다. 
 
