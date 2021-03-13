@@ -138,14 +138,14 @@ $\frac{d f_1(h_0)}{dh_0}, \frac{df_2(h_1)}{dh_0}, \cdots, \frac{df_{\ell}(h_{\el
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/ae30-hist.png" alt="ae">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/ae30-weight.png" alt="ae">
   <figcaption style="text-align: center;">[그래프1] - AE Gradient Histogram</figcaption>
 </p>
 </figure>
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-hist.png" alt="rae">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-weight.png" alt="rae">
   <figcaption style="text-align: center;">[그래프2] - RAE Gradient Histogram</figcaption>
 </p>
 </figure>
@@ -216,7 +216,7 @@ Gradient Accumulation을 통해서 불안정적이던 학습을 안정적으로 
 
 <figure class="image" style="align: center;">
 <p align="center">
-  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-6000-hist.png" alt="rae">
+  <img style="width: 70%" src="/assets/images/2020-12-29-Gradient-Accumulation/rae30-6000.png" alt="rae">
   <figcaption style="text-align: center;">[그래프3] - RAE Gradient Histogram with batch size 6000</figcaption>
 </p>
 </figure>
