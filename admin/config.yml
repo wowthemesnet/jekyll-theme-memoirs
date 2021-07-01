@@ -15,7 +15,7 @@ collections:
     fields: # The fields for each document, usually in front matter
       - { label: "Layout", name: "layout", widget: "hidden", default: "post" }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Featured", name: "image", widget: "file" }
+      - { label: "Featured", name: "image", widget: "image" }
       - { label: "Category", name: "categories", widget: "list" }
       - { label: "TOC", name: "toc", widget: "boolean", default: true }
       - { label: "BeforeTOC", name: "beforetoc", widget: "string"}
