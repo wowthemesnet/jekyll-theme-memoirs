@@ -16,6 +16,9 @@
 
 <script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
 
+<!-- Netlify CMS Identity Script Widget
+================================================== -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
 {% if jekyll.environment == 'production' %}
@@ -139,6 +142,21 @@
 {% if page.layout == 'post' %}
 <script id="dsq-count-scr" src="//{{site.disqus}}.disqus.com/count.js"></script>
 {% endif %}
+
+<!-- Netlify CMS Identity Script
+================================================== -->
+
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 
 </body>
 </html>
