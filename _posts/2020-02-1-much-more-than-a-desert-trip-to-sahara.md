@@ -4,6 +4,7 @@ title:  "Much more than a desert: A trip into the Sahara"
 author: john
 categories: [ Travel ]
 image: assets/images/16.jpg
+published: false
 ---
 
 The Sahara is a desert located on the African continent. It is the largest hot desert in the world, and the third largest desert overall after Antarctica and the Arctic. Its area of 9,200,000 square kilometres (3,600,000 sq mi) is comparable to the area of China or the United States.[3] The name 'Sahara' is derived from a dialectal Arabic word for "desert", ṣaḥra (صحرا /ˈsˤaħra/).

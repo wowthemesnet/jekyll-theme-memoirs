@@ -4,6 +4,7 @@ title:  "The Observer - National Gallery of Art, Washington, United States"
 author: sal
 categories: [ Lifestyle ]
 image: assets/images/1.jpg
+published: false
 ---
 The National Gallery of Art, and its attached Sculpture Garden, is a national art museum in Washington, D.C., located on the National Mall, between 3rd and 9th Streets, at Constitution Avenue NW. Open to the public and free of charge, the museum was privately established in 1937 for the American people by a joint resolution of the United States Congress. Andrew W. Mellon donated a substantial art collection and funds for construction. 
 
