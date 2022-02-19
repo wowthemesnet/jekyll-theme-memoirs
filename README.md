@@ -1,5 +1,13 @@
-# Memoirs Jekyll Theme
+# How To
 
-[Live Demo](https://wowthemesnet.github.io/jekyll-theme-memoirs/) | [Docs & Download](https://bootstrapstarter.com/jekyll-theme-memoirs/) |  [Buy me a coffee](https://www.wowthemes.net/donate/)
+After running an update, execute
 
-![memoirs](https://bootstrapstarter.com/assets/img/themes/memoirs-jekyll.jpg)
+```commandline
+bundle exec jekyll build
+```
+
+To see it locally, execute:
+
+```commandline
+bundle exec jekyll serve
+```
