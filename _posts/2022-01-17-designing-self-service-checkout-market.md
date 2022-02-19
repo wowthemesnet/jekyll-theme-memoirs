@@ -37,7 +37,8 @@ Based on the scenario, here is the diagram that I made, followed by a table expl
 | Employee   | <br/>**T**he employee is another living actor in the scenario. Its job is to order products from suppliers, override transactions manually in the case of scanning error, or check the Customer’s age when a restricted item is in the bucket. Thus, creating an Employee class will help in placing, or encapsulating the information and operations correctly.                                                                                                                                                              |
 | Payment    | <br/>**T**he Payment class will be created when a Customer object is about to pay. The reason why it is having its class is that there will be multiple payment methods available for the Customer object, and they are all having different attributes and behaviours on each method. Having a parent class for each method will help in simplifying the construction of the class. <br/><br/>There are classes that inherit Payment class that represents various method of payments available:<br/>Cash, Coupon, and Card. |
 
-## I.B. Relathionships
+
+## I.B. Relationships
 
 ### Loyalty
 _**Association**_
@@ -68,3 +69,4 @@ _**Generalization**_
 ### Card
 _**Generalization**_
 - Debit, Credit - Represents the subtype of the Card class.
+---
