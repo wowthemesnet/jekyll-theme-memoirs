@@ -7,9 +7,6 @@ image: assets/images/lorem-ipsum.jpg
 published: True
 date: 2021-11-28
 ---
-# Nerea in velles
-
-## Putes sonantia tenebant funera
 
 Lorem markdownum mirantem. Ille nocti, tangeris, certa labique perire;
 **rescindere** mariti hostes amore [heros] iuravimus comparat posuere. Quam
@@ -27,6 +24,10 @@ def print_something(strings):
     print(strings)
 
 ```
+
+# Nerea in velles
+
+## Putes sonantia tenebant funera
 
 Superi poscitur; ad tibi addere precibusque loqui aliis, cursu. Spretis
 caesarumque, in neci dominae defecta mentita, Procris tumuletur inter loquendi,
